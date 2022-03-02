@@ -1,26 +1,31 @@
 import { InferGetStaticPropsType } from "next";
 import React from "react";
+import { Footer, Header } from "../components";
 import Product from "../components/Product";
 
 const ProductsPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className="w-11/12 mx-auto">
-      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data.map((item) => (
-          <li key={item.id}>
-            <Product
-              title={item.title}
-              imgSrc={item.image}
-              price={item.price}
-              desc={item.description}
-              category={item.category}
-              rating={item.rating.rate}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className=" bg-slate-200">
+      <Header />
+      <div className="w-11/12 mx-auto mb-8">
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {data.map((item) => (
+            <li key={item.id}>
+              <Product
+                title={item.title}
+                imgSrc={item.image}
+                price={item.price}
+                desc={item.description}
+                category={item.category}
+                rating={item.rating.rate}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Footer />
     </div>
   );
 };

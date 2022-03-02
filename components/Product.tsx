@@ -21,7 +21,7 @@ const Product = ({
   return (
     <div className="relative flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-gray-100 rounded shadow-md md:p-5 lg:p-6">
       <div className="flex flex-col items-center">
-        <h3 className="mb-2 text-2xl font-semibold text-center text-slate-800">
+        <h3 className="mb-2 text-2xl font-bold text-center text-slate-800">
           {title}
         </h3>
         <h4 className="mb-4 text-lg font-semibold text-center text-slate-500">
@@ -36,7 +36,7 @@ const Product = ({
             className="max-w-full"
           />
         </div>
-        <p className="mb-6 text-slate-600">{desc}</p>
+        <p className="mb-6 text-lg font-thin text-slate-800">{desc}</p>
       </div>
       <div className="flex items-center justify-between w-full">
         <p className="p-2 text-lg font-semibold rounded-md bg-slate-200">
