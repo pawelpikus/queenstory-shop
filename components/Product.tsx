@@ -14,7 +14,42 @@ interface ProductProps {
   data: ProductDetails;
 }
 
-type ProductListItem = Pick<ProductDetails, "title" | "imgSrc" | "category">;
+type ProductListItem = Pick<
+  ProductDetails,
+  "title" | "imgSrc" | "category" | "price"
+>;
+
+export const ProductListItem = ({
+  title,
+  imgSrc,
+  category,
+  price,
+}: ProductListItem) => {
+  return (
+    <div className="flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
+      <div className="flex flex-col items-center justify-between h-full">
+        <div className="relative mb-6 ">
+          <Image
+            src={imgSrc}
+            width={300}
+            height={350}
+            alt={title}
+            className="max-w-full"
+          />
+        </div>
+        <h3 className="mb-2 text-2xl font-bold text-center text-slate-800">
+          {title}
+        </h3>
+        <h4 className="mb-4 text-lg font-semibold text-center text-slate-500">
+          {category}
+        </h4>
+        <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-amber-800">
+          ${price}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export const ProductDetails = ({ data }: ProductProps) => {
   return (

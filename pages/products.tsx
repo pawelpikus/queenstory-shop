@@ -2,7 +2,7 @@ import { InferGetStaticPropsType } from "next";
 import React from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { ProductDetails } from "../components/Product";
+import { ProductListItem } from "../components/Product";
 
 const ProductsPage = ({
   data,
@@ -14,13 +14,11 @@ const ProductsPage = ({
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data.map((item) => (
             <li key={item.id}>
-              <ProductDetails
+              <ProductListItem
                 title={item.title}
                 imgSrc={item.image}
-                price={item.price}
-                desc={item.description}
                 category={item.category}
-                rating={item.rating.rate}
+                price={item.price}
               />
             </li>
           ))}
