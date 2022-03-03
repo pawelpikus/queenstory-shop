@@ -1,7 +1,8 @@
 import { InferGetStaticPropsType } from "next";
 import React from "react";
-import { Footer, Header } from "../components";
-import Product from "../components/Product";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
+import { Product } from "../components/Product";
 
 const ProductsPage = ({
   data,
@@ -9,7 +10,7 @@ const ProductsPage = ({
   return (
     <div className=" bg-slate-200">
       <Header />
-      <div className="w-11/12 mx-auto mb-8">
+      <div className="w-11/12 mx-auto mb-8 max-w-7xl">
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data.map((item) => (
             <li key={item.id}>
