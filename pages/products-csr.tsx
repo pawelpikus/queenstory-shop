@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { Product } from "../components/Product";
+import { ProductDetails } from "../components/Product";
 import { ProductSkeleton } from "../components/ProductSkeleton";
 
 const getProducts = async () => {
@@ -26,7 +26,7 @@ const ProductsCSRPage = () => {
           {data ? (
             data.map((item) => (
               <li key={item.id}>
-                <Product
+                <ProductDetails
                   title={item.title}
                   imgSrc={item.image}
                   price={item.price}
