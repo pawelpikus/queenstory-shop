@@ -54,19 +54,19 @@ const ProductsCSRPage = () => {
         </ul>
         <span>Current Page: {offset + 1}</span>
         <button
-          onClick={() => setOffset((old) => Math.max(old - 1, 0))}
+          onClick={() => setOffset((old) => Math.max(old - 25, 0))}
           disabled={offset === 0}
         >
           Previous Page
         </button>{" "}
         <button
           onClick={() => {
-            if (!isPreviousData && data.hasMore) {
-              setOffset((old) => old + 1);
+            if (!isPreviousData) {
+              setOffset((old) => old + 25);
             }
           }}
           // Disable the Next Page button until we know a next page is available
-          disabled={isPreviousData || !data?.hasMore}
+          disabled={isPreviousData}
         >
           Next Page
         </button>
