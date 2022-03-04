@@ -1,6 +1,9 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import Link from "next/link";
 import React from "react";
 import { ErrorMsg } from "../../components/ErrorMsg";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
 import { ProductDetails } from "../../components/Product";
 
 const ProductIdPage = ({
@@ -11,16 +14,30 @@ const ProductIdPage = ({
   }
 
   return (
-    <ProductDetails
-      data={{
-        title: data.title,
-        imgSrc: data.image,
-        category: data.category,
-        price: data.price,
-        desc: data.description,
-        rating: data.rating.rate,
-      }}
-    />
+    <div className="flex flex-col min-h-screen bg-slate-200">
+      <Header />
+      <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
+        <Link href="/products/">
+          <a>
+            <h2 className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200">
+              &#8592; Back
+            </h2>
+          </a>
+        </Link>
+        <ProductDetails
+          data={{
+            id: data.id,
+            title: data.title,
+            imgSrc: data.image,
+            category: data.category,
+            price: data.price,
+            desc: data.description,
+            rating: data.rating.rate,
+          }}
+        />
+      </div>
+      <Footer />
+    </div>
   );
 };
 

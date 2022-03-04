@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProductDetails {
+  id: number;
   title: string;
   imgSrc: string;
   desc: string;
@@ -16,10 +18,11 @@ interface ProductProps {
 
 type ProductListItem = Pick<
   ProductDetails,
-  "title" | "imgSrc" | "category" | "price"
+  "title" | "imgSrc" | "category" | "price" | "id"
 >;
 
 export const ProductListItem = ({
+  id,
   title,
   imgSrc,
   category,
@@ -37,9 +40,13 @@ export const ProductListItem = ({
             className="max-w-full"
           />
         </div>
-        <h3 className="mb-2 text-2xl font-bold text-center text-slate-800">
-          {title}
-        </h3>
+        <Link href={`/products/${id}`}>
+          <a>
+            <h3 className="mb-2 text-2xl font-bold text-center hover:text-amber-600 text-slate-800">
+              {title}
+            </h3>
+          </a>
+        </Link>
         <h4 className="mb-4 text-lg font-semibold text-center text-slate-500">
           {category}
         </h4>
@@ -53,7 +60,7 @@ export const ProductListItem = ({
 
 export const ProductDetails = ({ data }: ProductProps) => {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
+    <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
       <div className="flex flex-col items-center">
         <div className="mb-6">
           <Image
