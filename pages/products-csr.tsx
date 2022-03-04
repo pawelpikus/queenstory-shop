@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { ProductDetails, ProductListItem } from "../components/Product";
+import { ProductListItem } from "../components/Product";
 import { ProductSkeleton } from "../components/ProductSkeleton";
 
-const getProducts = async () => {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const data: StoreAPIResponse[] = await res.json();
+const getProducts = async (offset: number) => {
+  const res = await fetch(
+    `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offset}`
+  );
+  const data = await res.json();
   return data;
 };
 
 const ProductsCSRPage = () => {
-  const { data, error, isError } = useQuery("products", getProducts);
+  const [offset, setOffset] = useState(0);
+
+  const { data, error, isError, isLoading, isFetching, isPreviousData } =
+    useQuery(["products", offset], () => getProducts(offset), {
+      keepPreviousData: true,
+    });
 
   if (isError) {
-    return <ErrorMsg message={error.message} />;
+    return <ErrorMsg message="Error fetching data." />;
   }
   return (
     <div className="min-h-screen bg-slate-200">
@@ -24,7 +31,7 @@ const ProductsCSRPage = () => {
       <div className="flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
         <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data ? (
-            data.map((item) => (
+            data.map((item: StoreAPIResponse) => (
               <li key={item.id}>
                 <ProductListItem
                   id={item.id}
@@ -45,6 +52,25 @@ const ProductsCSRPage = () => {
             </>
           )}
         </ul>
+        <span>Current Page: {offset + 1}</span>
+        <button
+          onClick={() => setOffset((old) => Math.max(old - 1, 0))}
+          disabled={offset === 0}
+        >
+          Previous Page
+        </button>{" "}
+        <button
+          onClick={() => {
+            if (!isPreviousData && data.hasMore) {
+              setOffset((old) => old + 1);
+            }
+          }}
+          // Disable the Next Page button until we know a next page is available
+          disabled={isPreviousData || !data?.hasMore}
+        >
+          Next Page
+        </button>
+        {isFetching ? <span> Loading...</span> : null}{" "}
       </div>
       <Footer />
     </div>
