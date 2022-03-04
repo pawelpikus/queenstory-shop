@@ -37,6 +37,7 @@ export const ProductListItem = ({
             width={300}
             height={350}
             alt={title}
+            placeholder="blur"
             className="max-w-full"
           />
         </div>
@@ -69,6 +70,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
             height={200}
             alt={data.title}
             className="max-w-full"
+            placeholder="blur"
           />
         </div>
         <h3 className="mb-2 text-2xl font-bold text-center text-slate-800">

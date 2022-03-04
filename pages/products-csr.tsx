@@ -13,10 +13,10 @@ const getProducts = async () => {
 };
 
 const ProductsCSRPage = () => {
-  const { data, error } = useQuery("products", getProducts);
+  const { data, error, isError } = useQuery("products", getProducts);
 
-  if (error) {
-    return <ErrorMsg />;
+  if (isError) {
+    return <ErrorMsg message={error.message} />;
   }
   return (
     <div className="min-h-screen bg-slate-200">
