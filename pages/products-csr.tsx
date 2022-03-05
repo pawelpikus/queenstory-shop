@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination";
 
 const OFFSET = 25;
 const TAKE = 25;
+const FAKE_PRODUCT_COUNT = 8;
 
 const getProducts = async (page: number) => {
   let offset = page * OFFSET;
@@ -22,10 +23,13 @@ const getProducts = async (page: number) => {
 const ProductsCSRPage = () => {
   const [page, setPage] = useState(0);
 
-  const { data, error, isError, isLoading, isFetching, isPreviousData } =
-    useQuery(["products", page], () => getProducts(page), {
+  const { data, isError, isFetching, isPreviousData } = useQuery(
+    ["products", page],
+    () => getProducts(page),
+    {
       keepPreviousData: true,
-    });
+    }
+  );
 
   if (isError) {
     return <ErrorMsg message="Error fetching data." />;
@@ -35,6 +39,12 @@ const ProductsCSRPage = () => {
     <div className="min-h-screen bg-slate-200">
       <Header />
       <div className="flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
+        <Pagination
+          page={page}
+          setPage={setPage}
+          isPreviousData={isPreviousData}
+          isFetching={isFetching}
+        />
         <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data ? (
             data.map((item: StoreAPIResponse) => (
@@ -50,7 +60,7 @@ const ProductsCSRPage = () => {
             ))
           ) : (
             <>
-              {[...new Array(8)].map((_, i) => (
+              {[...new Array(FAKE_PRODUCT_COUNT)].map((_, i) => (
                 <li key={i}>
                   <ProductSkeleton />
                 </li>

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ErrorProps {
-  message: string;
+  message?: string;
 }
 
 export const ErrorMsg = ({ message }: ErrorProps) => {

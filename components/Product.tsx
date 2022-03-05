@@ -42,7 +42,7 @@ export const ProductListItem = ({
         </div>
         <Link href={`/products/${id}`}>
           <a>
-            <h3 className="mb-2 text-2xl font-bold text-center hover:text-amber-600 text-slate-800">
+            <h3 className="mb-2 text-2xl font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-amber-500 to-amber-800 text-slate-800">
               {title}
             </h3>
           </a>
