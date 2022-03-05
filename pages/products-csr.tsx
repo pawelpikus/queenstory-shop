@@ -5,26 +5,32 @@ import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { ProductListItem } from "../components/Product";
 import { ProductSkeleton } from "../components/ProductSkeleton";
+import Pagination from "../components/Pagination";
 
-const getProducts = async (offset: number) => {
+const OFFSET = 25;
+const TAKE = 25;
+
+const getProducts = async (page: number) => {
+  let offset = page * OFFSET;
   const res = await fetch(
-    `https://naszsklep-api.vercel.app/api/products?take=25&offset=${offset}`
+    `https://naszsklep-api.vercel.app/api/products?take=${TAKE}&offset=${offset}`
   );
   const data = await res.json();
   return data;
 };
 
 const ProductsCSRPage = () => {
-  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(0);
 
   const { data, error, isError, isLoading, isFetching, isPreviousData } =
-    useQuery(["products", offset], () => getProducts(offset), {
+    useQuery(["products", page], () => getProducts(page), {
       keepPreviousData: true,
     });
 
   if (isError) {
     return <ErrorMsg message="Error fetching data." />;
   }
+
   return (
     <div className="min-h-screen bg-slate-200">
       <Header />
@@ -52,26 +58,13 @@ const ProductsCSRPage = () => {
             </>
           )}
         </ul>
-        <span>Current Page: {offset + 1}</span>
-        <button
-          onClick={() => setOffset((old) => Math.max(old - 25, 0))}
-          disabled={offset === 0}
-        >
-          Previous Page
-        </button>{" "}
-        <button
-          onClick={() => {
-            if (!isPreviousData) {
-              setOffset((old) => old + 25);
-            }
-          }}
-          // Disable the Next Page button until we know a next page is available
-          disabled={isPreviousData}
-        >
-          Next Page
-        </button>
-        {isFetching ? <span> Loading...</span> : null}{" "}
       </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        isPreviousData={isPreviousData}
+        isFetching={isFetching}
+      />
       <Footer />
     </div>
   );

@@ -4,7 +4,7 @@ const nextConfig = {
     domains: ["fakestoreapi.com", "naszsklep-api.vercel.app"],
   },
   reactStrictMode: true,
-  trailingSlash: true,
+  trailingSlash: false,
 };
 
 module.exports = nextConfig;
