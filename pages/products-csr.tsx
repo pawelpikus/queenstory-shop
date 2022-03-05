@@ -60,7 +60,7 @@ const ProductsCSRPage = () => {
             ))
           ) : (
             <>
-              {[...new Array(FAKE_PRODUCT_COUNT)].map((_, i) => (
+              {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
                 <li key={i}>
                   <ProductSkeleton />
                 </li>

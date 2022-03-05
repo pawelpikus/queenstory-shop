@@ -20,7 +20,7 @@ const Pagination = ({ page, setPage, isPreviousData }: PaginationProps) => {
         Previous Page
       </button>
       <div className="hidden md:-mt-px md:flex">
-        {[...new Array(PAGES_COUNT)].map((_, i) => {
+        {Array.from({ length: PAGES_COUNT }, (_, i) => {
           return (
             <button
               key={i}
