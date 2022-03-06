@@ -19,7 +19,6 @@ const ProductsPage = ({
             data.map((item) => (
               <li key={item.id}>
                 <ProductListItem
-                  page={page}
                   id={item.id}
                   title={item.title}
                   imgSrc={item.image}

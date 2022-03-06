@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { ErrorMsg } from "../../components/ErrorMsg";
 import { Footer } from "../../components/Footer";
@@ -9,6 +10,8 @@ import { ProductDetails } from "../../components/Product";
 const ProductIdPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+
   if (!data) {
     return <ErrorMsg />;
   }
@@ -17,13 +20,13 @@ const ProductIdPage = ({
     <div className="flex flex-col min-h-screen bg-slate-200">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
-        <Link href="/0/">
-          <a>
-            <h2 className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200">
-              &#8592; Back
-            </h2>
-          </a>
-        </Link>
+        <button
+          className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200"
+          type="button"
+          onClick={() => router.back()}
+        >
+          &#8592; Back
+        </button>
         <ProductDetails
           data={{
             id: data.id,
@@ -48,22 +51,21 @@ export const getStaticPaths = async () => {
   const data: StoreAPIResponse[] = await res.json();
 
   return {
-    paths: data.map((product, i) => {
+    paths: data.map((product) => {
       return {
         params: {
-          page: i.toString(),
           productId: product.id.toString(),
         },
       };
     }),
 
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ productId: string; page: string }>) => {
+}: GetStaticPropsContext<{ productId: string }>) => {
   if (!params?.productId) {
     return {
       props: {},

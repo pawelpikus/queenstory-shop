@@ -7,9 +7,16 @@ type PaginationProps = {
 const PAGES_COUNT = 10;
 
 const PaginationSSG = ({ page }: PaginationProps) => {
+  const pageNo = Number(page);
+
   return (
     <div className="flex flex-col items-center px-4 mt-12 mb-8 border-t border-gray-200 sm:px-0">
-      <div className="flex min-w-full ">
+      <div className="flex items-center w-full gap-4">
+        <Link href={pageNo > 1 ? `/${pageNo - 1}` : `/0`}>
+          <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
+            Previous Page
+          </a>
+        </Link>
         <div className="hidden md:-mt-px md:flex">
           {Array.from({ length: PAGES_COUNT }, (_, i) => {
             return (
@@ -27,8 +34,12 @@ const PaginationSSG = ({ page }: PaginationProps) => {
             );
           })}
         </div>
+        <Link href={pageNo < 9 ? `/${pageNo + 1}` : `/9`}>
+          <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
+            Next Page
+          </a>
+        </Link>
       </div>
-      <div className="w-full h-6 text-center"></div>
     </div>
   );
 };

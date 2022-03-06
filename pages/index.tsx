@@ -1,7 +1,7 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import Image from "next/image";
-import logo from "../public/queenstory-logo.png";
+import logo from "../public/queenstory-logo.jpg";
 import Link from "next/link";
 import { routes } from "../routes/routes";
 
@@ -23,11 +23,11 @@ const Home = () => {
               </Link>
             </div>
             <div className="flex flex-col items-center justify-center w-full ml-8">
-              <div className="rounded-full shadow-lg bg-slate-500 w-fit">
+              <div className="rounded-lg shadow-lg bg-slate-800 w-fit">
                 <Image
                   src={logo}
                   alt="Queen Story logo"
-                  className="max-w-full rounded-full"
+                  className="max-w-full rounded-lg"
                   priority
                 />
               </div>
