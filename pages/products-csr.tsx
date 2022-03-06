@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { ProductListItem } from "../components/Product";
 import { ProductSkeleton } from "../components/ProductSkeleton";
-import Pagination from "../components/Pagination";
+import PaginationCSR from "../components/PaginationCSR";
 
 const OFFSET = 25;
 const ITEMS_PER_PAGE = 25;
@@ -39,7 +39,7 @@ const ProductsCSRPage = () => {
     <div className="min-h-screen bg-slate-200">
       <Header />
       <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
-        <Pagination
+        <PaginationCSR
           page={page}
           setPage={setPage}
           isPreviousData={isPreviousData}
@@ -68,7 +68,7 @@ const ProductsCSRPage = () => {
             </>
           )}
         </ul>
-        <Pagination
+        <PaginationCSR
           page={page}
           setPage={setPage}
           isPreviousData={isPreviousData}

@@ -3,13 +3,13 @@ import React, { Dispatch, SetStateAction } from "react";
 type PaginationProps = {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  isPreviousData: boolean;
+  isPreviousData?: boolean;
   isFetching?: boolean;
 };
 
 const PAGES_COUNT = 10;
 
-const Pagination = ({
+const PaginationCSR = ({
   page,
   setPage,
   isPreviousData,
@@ -62,4 +62,4 @@ const Pagination = ({
   );
 };
 
-export default Pagination;
+export default PaginationCSR;
