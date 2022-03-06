@@ -16,7 +16,7 @@ const Home = () => {
               <h1 className="mb-4 text-4xl font-extrabold md:text-6xl lg:text-7xl">
                 Discover the beauty within.
               </h1>
-              <Link href={routes.PRODUCTSCSR}>
+              <Link href={routes.PRODUCTS}>
                 <a className="px-12 py-4 font-bold text-white transition-all border-none rounded shadow-lg bg-slate-500 hover:bg-gradient-to-br from-amber-500 to-amber-800">
                   Explore
                 </a>

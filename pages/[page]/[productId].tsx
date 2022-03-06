@@ -17,7 +17,7 @@ const ProductIdPage = ({
     <div className="flex flex-col min-h-screen bg-slate-200">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
-        <Link href="/products/">
+        <Link href="/0/">
           <a>
             <h2 className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200">
               &#8592; Back
@@ -48,9 +48,10 @@ export const getStaticPaths = async () => {
   const data: StoreAPIResponse[] = await res.json();
 
   return {
-    paths: data.map((product) => {
+    paths: data.map((product, i) => {
       return {
         params: {
+          page: i.toString(),
           productId: product.id.toString(),
         },
       };
@@ -62,7 +63,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({
   params,
-}: GetStaticPropsContext<{ productId: string }>) => {
+}: GetStaticPropsContext<{ productId: string; page: string }>) => {
   if (!params?.productId) {
     return {
       props: {},

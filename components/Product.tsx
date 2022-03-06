@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductDetails {
+  page?: string;
   id: number;
   title: string;
   imgSrc: string;
@@ -18,10 +19,11 @@ interface ProductProps {
 
 type ProductListItem = Pick<
   ProductDetails,
-  "title" | "imgSrc" | "category" | "price" | "id"
+  "title" | "imgSrc" | "category" | "price" | "id" | "page"
 >;
 
 export const ProductListItem = ({
+  page,
   id,
   title,
   imgSrc,
@@ -40,7 +42,7 @@ export const ProductListItem = ({
             className="max-w-full"
           />
         </div>
-        <Link href={`/1/${id}`}>
+        <Link href={`/${page}/${id}`}>
           <a>
             <h3 className="mb-2 text-2xl font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-amber-500 to-amber-800 text-slate-800">
               {title}
