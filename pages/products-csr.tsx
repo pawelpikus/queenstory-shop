@@ -8,13 +8,13 @@ import { ProductSkeleton } from "../components/ProductSkeleton";
 import Pagination from "../components/Pagination";
 
 const OFFSET = 25;
-const TAKE = 25;
+const ITEMS_PER_PAGE = 25;
 const FAKE_PRODUCT_COUNT = 8;
 
 const getProducts = async (page: number) => {
   let offset = page * OFFSET;
   const res = await fetch(
-    `https://naszsklep-api.vercel.app/api/products?take=${TAKE}&offset=${offset}`
+    `https://naszsklep-api.vercel.app/api/products?take=${ITEMS_PER_PAGE}&offset=${offset}`
   );
   const data = await res.json();
   return data;
@@ -38,7 +38,7 @@ const ProductsCSRPage = () => {
   return (
     <div className="min-h-screen bg-slate-200">
       <Header />
-      <div className="flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
+      <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
         <Pagination
           page={page}
           setPage={setPage}
@@ -68,13 +68,14 @@ const ProductsCSRPage = () => {
             </>
           )}
         </ul>
+        <Pagination
+          page={page}
+          setPage={setPage}
+          isPreviousData={isPreviousData}
+          isFetching={isFetching}
+        />
       </div>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        isPreviousData={isPreviousData}
-        isFetching={isFetching}
-      />
+
       <Footer />
     </div>
   );

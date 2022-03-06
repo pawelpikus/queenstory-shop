@@ -1,10 +1,10 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import React from "react";
-import { ErrorMsg } from "../../components/ErrorMsg";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
-import { ProductDetails } from "../../components/Product";
+import { ErrorMsg } from "../../../components/ErrorMsg";
+import { Footer } from "../../../components/Footer";
+import { Header } from "../../../components/Header";
+import { ProductDetails } from "../../../components/Product";
 
 const ProductIdPage = ({
   data,
