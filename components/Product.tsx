@@ -31,14 +31,15 @@ export const ProductListItem = ({
 }: ProductListItem) => {
   return (
     <div className="flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
-      <div className="flex flex-col items-center justify-between h-full">
-        <div className="relative mb-6 ">
+      <div className="flex flex-col items-center justify-between w-full h-full">
+        <div className="block w-full px-2 py-4 mb-6 bg-white rounded-lg ">
           <Image
             src={imgSrc}
-            width={300}
-            height={350}
+            layout="responsive"
+            width={16}
+            height={9}
+            objectFit="contain"
             alt={title}
-            className="max-w-full"
           />
         </div>
         <Link href={`products/${id}`}>
@@ -63,13 +64,14 @@ export const ProductDetails = ({ data }: ProductProps) => {
   return (
     <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
       <div className="flex flex-col items-center">
-        <div className="mb-6">
+        <div className="block w-full px-2 py-4 mb-6 bg-white rounded-lg ">
           <Image
             src={data.imgSrc}
-            width={150}
-            height={200}
+            layout="responsive"
+            width={16}
+            height={9}
+            objectFit="contain"
             alt={data.title}
-            className="max-w-full"
           />
         </div>
         <h3 className="mb-2 text-2xl font-bold text-center text-slate-800">
