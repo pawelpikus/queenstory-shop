@@ -34,7 +34,11 @@ const PaginationSSG = ({ page }: PaginationProps) => {
             );
           })}
         </div>
-        <Link href={pageNo < 9 ? `/${pageNo + 1}` : `/9`}>
+        <Link
+          href={
+            pageNo < PAGES_COUNT - 1 ? `/${pageNo + 1}` : `/${PAGES_COUNT - 1}`
+          }
+        >
           <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
             Next Page
           </a>

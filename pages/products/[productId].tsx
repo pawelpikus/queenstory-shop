@@ -16,7 +16,9 @@ const ProductIdPage = ({
     return <ErrorMsg />;
   }
 
-  return (
+  return router.isFallback ? (
+    <div>Loading...</div>
+  ) : (
     <div className="flex flex-col min-h-screen bg-slate-200">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
@@ -59,7 +61,7 @@ export const getStaticPaths = async () => {
       };
     }),
 
-    fallback: "blocking",
+    fallback: true,
   };
 };
 

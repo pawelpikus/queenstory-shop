@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface ProductDetails {
   page?: string;
@@ -42,6 +43,7 @@ export const ProductListItem = ({
             alt={title}
           />
         </div>
+
         <Link href={`products/${id}`}>
           <a>
             <h3 className="mb-2 text-2xl font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-amber-500 to-amber-800 text-slate-800">
@@ -52,7 +54,7 @@ export const ProductListItem = ({
         <h4 className="mb-4 text-lg font-semibold text-center text-slate-500">
           {category}
         </h4>
-        <p className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-amber-800">
+        <p className="text-4xl text-right font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-amber-800">
           ${price}
         </p>
       </div>
