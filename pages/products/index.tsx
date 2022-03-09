@@ -1,19 +1,20 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 import React from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
+import { ITEMS_PER_PAGE } from "../../utils/consts";
 
 const ProductsPage = ({
   data,
-  page,
+  currentPage,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div className=" bg-slate-200">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG page={page} />
+        <PaginationSSG currentPage={currentPage} />
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data &&
             data.map((item) => (
@@ -36,33 +37,29 @@ const ProductsPage = ({
 
 export default ProductsPage;
 
-let OFFSET = 0;
-const ITEMS_PER_PAGE = 25;
-const PAGES_COUNT = 10;
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: Array.from({ length: PAGES_COUNT }, (_, i) => {
+//       return {
+//         params: { currentPage: i.toString() },
+//       };
+//     }),
+//     fallback: false,
+//   };
+// };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: Array.from({ length: PAGES_COUNT }, (_, i) => {
-      return {
-        params: { page: i.toString() },
-      };
-    }),
-    fallback: false,
-  };
-};
+// export const getStaticProps = async ({
+//   params,
+// }: GetStaticPropsContext<{ currentPage: string }>) => {
+//   if (!params?.currentPage) {
+//     return {
+//       props: {},
+//       notFound: true,
+//     };
+//   }
 
-export const getStaticProps = async ({
-  params,
-}: GetStaticPropsContext<{ page: string }>) => {
-  if (!params?.page) {
-    return {
-      props: {},
-      notFound: true,
-    };
-  }
-
-  OFFSET = ITEMS_PER_PAGE * Number(params.page);
-
+export const getStaticProps = async () => {
+  const OFFSET = 0;
   const res = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${ITEMS_PER_PAGE}&offset=${OFFSET}`
   );
@@ -71,7 +68,7 @@ export const getStaticProps = async ({
   return {
     props: {
       data,
-      page: params.page,
+      currentPage: "1",
     },
   };
 };

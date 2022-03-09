@@ -23,16 +23,15 @@ const getProducts = async (page: number) => {
 const ProductsCSRPage = () => {
   const [page, setPage] = useState(0);
 
-  const { data, isError, isFetching, isPreviousData } = useQuery(
-    ["products", page],
-    () => getProducts(page),
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data, isError, error, isFetching, isPreviousData } = useQuery<
+    any,
+    Error
+  >(["products", page], () => getProducts(page), {
+    keepPreviousData: true,
+  });
 
   if (isError) {
-    return <ErrorMsg message="Error fetching data." />;
+    return <ErrorMsg message={`${error.message}`} />;
   }
 
   return (

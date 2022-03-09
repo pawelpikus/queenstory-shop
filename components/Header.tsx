@@ -12,7 +12,7 @@ export const Header = () => {
         <Link href={routes.PRODUCTS}>
           <a className="transition-colors hover:text-white">Products (SSG)</a>
         </Link>
-        <Link href={routes.PRODUCTSCSR}>
+        <Link href={routes.PRODUCTS_CSR}>
           <a className="transition-colors hover:text-white">Products (CSR)</a>
         </Link>
       </nav>
