@@ -31,7 +31,7 @@ const ProductsCSRPage = () => {
   });
 
   if (isError) {
-    return <ErrorMsg message={`${error.message}`} />;
+    return <ErrorMsg message={`${error && error.message}`} />;
   }
 
   return (

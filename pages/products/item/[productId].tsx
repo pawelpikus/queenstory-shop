@@ -1,8 +1,8 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import Link from "next/link";
+import ErrorPage from "next/error";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import { ErrorMsg } from "../../../components/ErrorMsg";
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { ProductDetails } from "../../../components/Product";
@@ -13,12 +13,21 @@ const ProductIdPage = ({
   const router = useRouter();
 
   if (!data) {
-    return <ErrorMsg />;
+    return (
+      <>
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+        <ErrorPage statusCode={404} />
+      </>
+    );
   }
 
-  return router.isFallback ? (
-    <div>Loading...</div>
-  ) : (
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <div className="flex flex-col min-h-screen bg-slate-200">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">

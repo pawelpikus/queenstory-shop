@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface ProductDetails {
   page?: string;
@@ -31,7 +30,7 @@ export const ProductListItem = ({
   price,
 }: ProductListItem) => {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
+    <div className="flex flex-col items-center justify-between w-full h-full p-4 my-4 bg-white rounded-lg shadow-lg md:p-5 lg:p-6">
       <div className="flex flex-col items-center justify-between w-full h-full">
         <div className="block w-full px-2 py-4 mb-6 bg-white rounded-lg ">
           <Image
@@ -44,7 +43,7 @@ export const ProductListItem = ({
           />
         </div>
 
-        <Link href={`products/${id}`}>
+        <Link href={`/products/item/${id}`}>
           <a>
             <h3 className="mb-2 text-2xl font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-amber-500 to-amber-800 text-slate-800">
               {title}
@@ -54,7 +53,7 @@ export const ProductListItem = ({
         <h4 className="mb-4 text-lg font-semibold text-center text-slate-500">
           {category}
         </h4>
-        <p className="text-4xl text-right font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-amber-800">
+        <p className="text-4xl font-extrabold text-right text-transparent bg-clip-text bg-gradient-to-br from-amber-500 to-amber-800">
           ${price}
         </p>
       </div>
@@ -64,7 +63,7 @@ export const ProductListItem = ({
 
 export const ProductDetails = ({ data }: ProductProps) => {
   return (
-    <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-gray-100 rounded-lg shadow-md md:p-5 lg:p-6">
+    <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-white rounded-lg shadow-lg md:p-5 lg:p-6">
       <div className="flex flex-col items-center">
         <div className="block w-full px-2 py-4 mb-6 bg-white rounded-lg ">
           <Image

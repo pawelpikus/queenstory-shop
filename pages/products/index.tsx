@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -36,27 +37,6 @@ const ProductsPage = ({
 };
 
 export default ProductsPage;
-
-// export const getStaticPaths = async () => {
-//   return {
-//     paths: Array.from({ length: PAGES_COUNT }, (_, i) => {
-//       return {
-//         params: { currentPage: i.toString() },
-//       };
-//     }),
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = async ({
-//   params,
-// }: GetStaticPropsContext<{ currentPage: string }>) => {
-//   if (!params?.currentPage) {
-//     return {
-//       props: {},
-//       notFound: true,
-//     };
-//   }
 
 export const getStaticProps = async () => {
   const OFFSET = 0;
