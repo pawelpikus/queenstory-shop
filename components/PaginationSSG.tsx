@@ -13,7 +13,7 @@ const PaginationSSG = ({ currentPage }: PaginationProps) => {
       <div className="flex items-center w-full gap-4">
         <Link
           href={
-            currentPageNum > 1 ? `/products/${currentPageNum - 1}` : `/products`
+            currentPageNum > 2 ? `/products/${currentPageNum - 1}` : `/products`
           }
         >
           <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
@@ -51,7 +51,7 @@ const PaginationSSG = ({ currentPage }: PaginationProps) => {
         <Link
           href={
             currentPageNum < PAGES_COUNT - 1
-              ? `/products/${currentPageNum}`
+              ? `/products/${currentPageNum + 1}`
               : `/products/${PAGES_COUNT}`
           }
         >
