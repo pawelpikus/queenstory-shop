@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -10,6 +11,11 @@ const ProductsPage = ({
   data,
   currentPage,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className=" bg-slate-200">
       <Header />
@@ -41,7 +47,7 @@ export const getStaticPaths = async () => {
   return {
     paths: Array.from({ length: PAGES_COUNT }, (_, i) => {
       return {
-        params: { currentPage: String(i + 2) },
+        params: { currentPage: String(i + 1) },
       };
     }),
     fallback: false,

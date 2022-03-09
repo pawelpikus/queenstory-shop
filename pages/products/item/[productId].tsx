@@ -23,10 +23,6 @@ const ProductIdPage = ({
     );
   }
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="flex flex-col min-h-screen bg-slate-200">
       <Header />
@@ -58,19 +54,21 @@ const ProductIdPage = ({
 export default ProductIdPage;
 
 export const getStaticPaths = async () => {
-  const res = await fetch("https://naszsklep-api.vercel.app/api/products");
+  const res = await fetch(
+    "https://naszsklep-api.vercel.app/api/products?take=25&offset=250"
+  );
   const data: StoreAPIResponse[] = await res.json();
 
-  return {
-    paths: data.map((product) => {
-      return {
-        params: {
-          productId: product.id.toString(),
-        },
-      };
-    }),
+  const paths = Array.from(
+    { length: data[data.length - 1]?.id || 0 },
+    (_, i) => ({
+      params: { productId: (i + 1).toString() },
+    })
+  );
 
-    fallback: true,
+  return {
+    paths,
+    fallback: false,
   };
 };
 
