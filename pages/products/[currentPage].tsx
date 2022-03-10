@@ -17,7 +17,7 @@ const ProductsPage = ({
     return <div>Loading...</div>;
   }
   return (
-    <div className=" bg-slate-200">
+    <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
         <PaginationSSG currentPage={currentPage} />

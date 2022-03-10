@@ -24,11 +24,11 @@ const ProductIdPage = ({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-200">
+    <div className="flex flex-col min-h-screen bg-neutral-50">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
         <button
-          className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200"
+          className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
           type="button"
           onClick={() => router.back()}
         >
