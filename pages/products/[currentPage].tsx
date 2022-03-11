@@ -50,7 +50,7 @@ export const getStaticPaths = async () => {
         params: { currentPage: String(i + 1) },
       };
     }),
-    fallback: false,
+    fallback: true,
   };
 };
 

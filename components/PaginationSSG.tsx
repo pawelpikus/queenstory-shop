@@ -21,17 +21,29 @@ const PaginationSSG = ({ currentPage }: PaginationProps) => {
           </a>
         </Link>
         <div className="hidden md:-mt-px md:flex">
-          {Array.from({ length: PAGES_COUNT }, (_, i) => {
+          <Link href={`/products/`}>
+            <a
+              className={`${
+                !currentPage
+                  ? `text-emerald-700 border-t-2 border-emerald-600`
+                  : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+              } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+            >
+              1
+            </a>
+          </Link>
+
+          {Array.from({ length: PAGES_COUNT - 1 }, (_, i) => {
             return (
-              <Link key={i} href={`/products/${i + 1}`}>
+              <Link key={i} href={`/products/${i + 2}`}>
                 <a
                   className={`${
-                    currentPage === String(i + 1)
+                    currentPage === String(i + 2)
                       ? `text-emerald-700 border-t-2 border-emerald-600`
                       : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
                   } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
                 >
-                  {i + 1}
+                  {i + 2}
                 </a>
               </Link>
             );

@@ -45,15 +45,15 @@ export const ProductListItem = ({
         </div>
         <div>
           <Link href={`/products/item/${id}`}>
-            <a className="font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-emerald-500 to-emerald-800 text-neutral-800">
+            <a className="font-sans font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-emerald-500 to-emerald-800 text-neutral-800">
               {title}
             </a>
           </Link>
-          <h4 className="mb-4 text-sm text-center font-narrow text-neutral-500">
+          <h4 className="mb-4 text-center font-narrow text-neutral-500">
             {category}
           </h4>
         </div>
-        <p className="font-extrabold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
+        <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
           {formatter.format(price)}
         </p>
       </div>

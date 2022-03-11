@@ -34,17 +34,21 @@ const ProductIdPage = ({
         >
           &#8592; Back
         </button>
-        <ProductDetails
-          data={{
-            id: data.id,
-            title: data.title,
-            imgSrc: data.image,
-            category: data.category,
-            price: data.price,
-            desc: data.description,
-            rating: data.rating.rate,
-          }}
-        />
+        {router.isFallback ? (
+          <div>Loading...</div>
+        ) : (
+          <ProductDetails
+            data={{
+              id: data.id,
+              title: data.title,
+              imgSrc: data.image,
+              category: data.category,
+              price: data.price,
+              desc: data.description,
+              rating: data.rating.rate,
+            }}
+          />
+        )}
       </div>
       <Footer />
     </div>
@@ -52,19 +56,12 @@ const ProductIdPage = ({
 };
 
 export default ProductIdPage;
+const NUMBER_OF_STATIC_PRODUCTS = 275;
 
 export const getStaticPaths = async () => {
-  const res = await fetch(
-    "https://naszsklep-api.vercel.app/api/products?take=25&offset=250"
-  );
-  const data: StoreAPIResponse[] = await res.json();
-
-  const paths = Array.from(
-    { length: data[data.length - 1]?.id || 0 },
-    (_, i) => ({
-      params: { productId: (i + 1).toString() },
-    })
-  );
+  const paths = Array.from({ length: NUMBER_OF_STATIC_PRODUCTS }, (_, i) => ({
+    params: { productId: (i + 1).toString() },
+  }));
 
   return {
     paths,

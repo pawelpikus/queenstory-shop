@@ -5,7 +5,7 @@ import { routes } from "../routes/routes";
 export const Header = () => {
   return (
     <header className="py-4 bg-neutral-800">
-      <nav className="flex w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase font-narrow max-w-7xl ">
+      <nav className="flex w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase font-narrow max-w-5xl ">
         <Link href={routes.HOME}>
           <a className="mr-24 transition-colors hover:text-white">Home</a>
         </Link>
