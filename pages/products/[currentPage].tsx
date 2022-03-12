@@ -5,7 +5,9 @@ import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
+import { ProductSkeleton } from "../../components/ProductSkeleton";
 import { ITEMS_PER_PAGE, PAGES_COUNT } from "../../utils/consts";
+import { FAKE_PRODUCT_COUNT } from "../../utils/consts";
 
 const ProductsPage = ({
   data,
@@ -13,28 +15,35 @@ const ProductsPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
         <PaginationSSG currentPage={currentPage} />
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data &&
-            data.map((item) => (
-              <li key={item.id}>
-                <ProductListItem
-                  id={item.id}
-                  title={item.title}
-                  imgSrc={item.image}
-                  category={item.category}
-                  price={item.price}
-                />
+        {router.isFallback ? (
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+              <li key={i}>
+                <ProductSkeleton />
               </li>
             ))}
-        </ul>
+          </ul>
+        ) : (
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {data &&
+              data.map((item) => (
+                <li key={item.id}>
+                  <ProductListItem
+                    id={item.id}
+                    title={item.title}
+                    imgSrc={item.image}
+                    category={item.category}
+                    price={item.price}
+                  />
+                </li>
+              ))}
+          </ul>
+        )}
       </div>
       <Footer />
     </div>

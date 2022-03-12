@@ -6,10 +6,7 @@ import { ErrorMsg } from "../components/ErrorMsg";
 import { ProductListItem } from "../components/Product";
 import { ProductSkeleton } from "../components/ProductSkeleton";
 import PaginationCSR from "../components/PaginationCSR";
-
-const OFFSET = 25;
-const ITEMS_PER_PAGE = 25;
-const FAKE_PRODUCT_COUNT = 8;
+import { FAKE_PRODUCT_COUNT, OFFSET, ITEMS_PER_PAGE } from "../utils/consts";
 
 const getProducts = async (page: number) => {
   let offset = page * OFFSET;

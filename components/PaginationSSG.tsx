@@ -3,10 +3,12 @@ import { PAGES_COUNT } from "../utils/consts";
 
 type PaginationProps = {
   currentPage?: string | undefined;
+  totalPages?: number | undefined;
 };
 
-const PaginationSSG = ({ currentPage }: PaginationProps) => {
+const PaginationSSG = ({ currentPage, totalPages }: PaginationProps) => {
   const currentPageNum = Number(currentPage) || 0;
+  console.log(totalPages);
 
   return (
     <div className="flex flex-col items-center px-4 mt-12 mb-8 border-neutral-200 sm:px-0">
