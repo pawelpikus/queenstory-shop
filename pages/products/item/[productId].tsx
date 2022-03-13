@@ -23,32 +23,32 @@ const ProductIdPage = ({
     );
   }
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="flex flex-col min-h-screen bg-slate-200">
+    <div className="flex flex-col min-h-screen bg-neutral-50">
       <Header />
       <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
         <button
-          className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200"
+          className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
           type="button"
           onClick={() => router.back()}
         >
           &#8592; Back
         </button>
-        <ProductDetails
-          data={{
-            id: data.id,
-            title: data.title,
-            imgSrc: data.image,
-            category: data.category,
-            price: data.price,
-            desc: data.description,
-            rating: data.rating.rate,
-          }}
-        />
+        {router.isFallback ? (
+          <div>Loading...</div>
+        ) : (
+          <ProductDetails
+            data={{
+              id: data.id,
+              title: data.title,
+              imgSrc: data.image,
+              category: data.category,
+              price: data.price,
+              desc: data.description,
+              rating: data.rating.rate,
+            }}
+          />
+        )}
       </div>
       <Footer />
     </div>
@@ -56,21 +56,16 @@ const ProductIdPage = ({
 };
 
 export default ProductIdPage;
+const NUMBER_OF_STATIC_PRODUCTS = 275;
 
 export const getStaticPaths = async () => {
-  const res = await fetch("https://naszsklep-api.vercel.app/api/products");
-  const data: StoreAPIResponse[] = await res.json();
+  const paths = Array.from({ length: NUMBER_OF_STATIC_PRODUCTS }, (_, i) => ({
+    params: { productId: (i + 1).toString() },
+  }));
 
   return {
-    paths: data.map((product) => {
-      return {
-        params: {
-          productId: product.id.toString(),
-        },
-      };
-    }),
-
-    fallback: true,
+    paths,
+    fallback: false,
   };
 };
 

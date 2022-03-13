@@ -1,5 +1,4 @@
 import { InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
 import React from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -9,13 +8,12 @@ import { ITEMS_PER_PAGE } from "../../utils/consts";
 
 const ProductsPage = ({
   data,
-  currentPage,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div className=" bg-slate-200">
+    <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG currentPage={currentPage} />
+        <PaginationSSG />
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data &&
             data.map((item) => (
@@ -48,7 +46,6 @@ export const getStaticProps = async () => {
   return {
     props: {
       data,
-      currentPage: "1",
     },
   };
 };

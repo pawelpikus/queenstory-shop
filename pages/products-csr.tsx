@@ -35,7 +35,7 @@ const ProductsCSRPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-200">
+    <div className="min-h-screen bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
         <PaginationCSR
