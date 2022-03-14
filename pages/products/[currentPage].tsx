@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
@@ -12,14 +12,23 @@ import { FAKE_PRODUCT_COUNT } from "../../utils/consts";
 const ProductsPage = ({
   data,
   currentPage,
+  totalPages,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+  const [minPageLimit, setMinPageLimit] = useState(0);
+  const [maxPageLimit, setMaxPageLimit] = useState(5);
+
+  const paginationAttributes = {
+    minPageLimit,
+    maxPageLimit,
+    totalPages,
+  };
 
   return (
     <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG currentPage={currentPage} />
+        <PaginationSSG currentPage={currentPage} {...paginationAttributes} />
         {router.isFallback ? (
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
@@ -82,6 +91,7 @@ export const getStaticProps = async ({
     props: {
       data,
       currentPage: params.currentPage,
+      totalPages: 160,
     },
   };
 };
