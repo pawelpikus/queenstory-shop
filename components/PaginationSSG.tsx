@@ -8,12 +8,11 @@ type PaginationProps = {
   maxPageLimit: number;
 };
 
-const PaginationSSG = ({
-  currentPage,
-  ...paginationAttributes
-}: PaginationProps) => {
+const PaginationSSG = ({ ...paginationAttributes }: PaginationProps) => {
+  const { currentPage, minPageLimit, maxPageLimit, totalPages } =
+    paginationAttributes;
   const currentPageNum = Number(currentPage) || 0;
-  const { minPageLimit, maxPageLimit, totalPages } = paginationAttributes;
+  const pages = [...new Array(totalPages)].map((_, i) => i + 1);
 
   return (
     <div className="flex flex-col items-center px-4 mt-12 mb-8 border-neutral-200 sm:px-0">
@@ -39,34 +38,39 @@ const PaginationSSG = ({
               1
             </a>
           </Link>
-
-          {Array.from({ length: PAGES_COUNT - 1 }, (_, i) => {
-            return (
-              <Link key={i} href={`/products/${i + 2}`}>
-                <a
-                  className={`${
-                    currentPage === String(i + 2)
-                      ? `text-emerald-700 border-t-2 border-emerald-600`
-                      : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
-                  } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
-                >
-                  {i + 2}
-                </a>
-              </Link>
-            );
+          {pages.length >= 1 ? <span>&hellip;</span> : null}
+          {pages.map((page) => {
+            if (page <= maxPageLimit && page > minPageLimit) {
+              return (
+                <Link key={page} href={`/products/${page + 2}`}>
+                  <a
+                    className={`${
+                      currentPage === String(page + 2)
+                        ? `text-emerald-700 border-t-2 border-emerald-600`
+                        : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+                    } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+                  >
+                    {page + 2}
+                  </a>
+                </Link>
+              );
+            }
           })}
+          {pages.length > maxPageLimit ? <span>&hellip;</span> : null}
+
+          <Link href={`/products/${totalPages}`}>
+            <a
+              className={`${
+                !currentPage
+                  ? `text-emerald-700 border-t-2 border-emerald-600`
+                  : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+              } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+            >
+              {totalPages}
+            </a>
+          </Link>
         </div>
-        <Link href={`/products/${totalPages}`}>
-          <a
-            className={`${
-              !currentPage
-                ? `text-emerald-700 border-t-2 border-emerald-600`
-                : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
-            } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
-          >
-            {totalPages}
-          </a>
-        </Link>
+
         <Link
           href={
             currentPageNum < PAGES_COUNT
