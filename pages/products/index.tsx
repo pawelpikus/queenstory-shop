@@ -13,7 +13,7 @@ const ProductsPage = ({
     <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG />
+        {/* <PaginationSSG /> */}
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {data &&
             data.map((item) => (

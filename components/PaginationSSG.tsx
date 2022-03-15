@@ -1,18 +1,32 @@
 import Link from "next/link";
-import { PAGES_COUNT } from "../utils/consts";
 
 type PaginationProps = {
   currentPage?: string;
   totalPages: number | undefined;
   minPageLimit: number;
   maxPageLimit: number;
+  onPrevClick: () => void;
+  onNextClick: () => void;
 };
 
-const PaginationSSG = ({ ...paginationAttributes }: PaginationProps) => {
+const PaginationSSG = ({
+  onNextClick,
+  onPrevClick,
+  ...paginationAttributes
+}: PaginationProps) => {
   const { currentPage, minPageLimit, maxPageLimit, totalPages } =
     paginationAttributes;
   const currentPageNum = Number(currentPage) || 0;
+  console.log(currentPageNum);
   const pages = [...new Array(totalPages)].map((_, i) => i + 1);
+
+  const handlePrevClick = () => {
+    onPrevClick();
+  };
+
+  const handleNextClick = () => {
+    onNextClick();
+  };
 
   return (
     <div className="flex flex-col items-center px-4 mt-12 mb-8 border-neutral-200 sm:px-0">
@@ -22,11 +36,14 @@ const PaginationSSG = ({ ...paginationAttributes }: PaginationProps) => {
             currentPageNum > 1 ? `/products/${currentPageNum - 1}` : `/products`
           }
         >
-          <a className="mx-4 font-semibold transition-colors hover:text-emerald-600 ">
+          <a
+            onClick={handlePrevClick}
+            className="mx-4 font-semibold transition-colors hover:text-emerald-600 "
+          >
             Previous Page
           </a>
         </Link>
-        <div className="hidden md:-mt-px md:flex">
+        <div className="items-baseline hidden md:-mt-px md:flex">
           <Link href={`/products/`}>
             <a
               className={`${
@@ -38,25 +55,27 @@ const PaginationSSG = ({ ...paginationAttributes }: PaginationProps) => {
               1
             </a>
           </Link>
-          {pages.length >= 1 ? <span>&hellip;</span> : null}
+          {minPageLimit >= 1 ? <div>&hellip;</div> : null}
           {pages.map((page) => {
             if (page <= maxPageLimit && page > minPageLimit) {
               return (
-                <Link key={page} href={`/products/${page + 2}`}>
+                <Link key={page} href={`/products/${page + 1}`}>
                   <a
                     className={`${
-                      currentPage === String(page + 2)
+                      currentPage === String(page + 1)
                         ? `text-emerald-700 border-t-2 border-emerald-600`
                         : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
                     } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
                   >
-                    {page + 2}
+                    {page + 1}
                   </a>
                 </Link>
               );
+            } else {
+              return null;
             }
           })}
-          {pages.length > maxPageLimit ? <span>&hellip;</span> : null}
+          {pages.length > maxPageLimit ? <div>&hellip;</div> : null}
 
           <Link href={`/products/${totalPages}`}>
             <a
@@ -73,12 +92,15 @@ const PaginationSSG = ({ ...paginationAttributes }: PaginationProps) => {
 
         <Link
           href={
-            currentPageNum < PAGES_COUNT
+            totalPages && currentPageNum < totalPages
               ? `/products/${currentPageNum + 1}`
-              : `/products/${PAGES_COUNT}`
+              : `/products/${totalPages}`
           }
         >
-          <a className="mx-4 font-semibold transition-colors hover:text-emerald-600 ">
+          <a
+            onClick={handleNextClick}
+            className="mx-4 font-semibold transition-colors hover:text-emerald-600 "
+          >
             Next Page
           </a>
         </Link>

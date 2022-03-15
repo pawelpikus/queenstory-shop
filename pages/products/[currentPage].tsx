@@ -6,7 +6,11 @@ import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
 import { ProductSkeleton } from "../../components/ProductSkeleton";
-import { ITEMS_PER_PAGE, PAGES_COUNT } from "../../utils/consts";
+import {
+  ITEMS_PER_PAGE,
+  PAGES_COUNT,
+  PAGE_NUM_LIMIT,
+} from "../../utils/consts";
 import { FAKE_PRODUCT_COUNT } from "../../utils/consts";
 
 const ProductsPage = ({
@@ -16,7 +20,7 @@ const ProductsPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   const [minPageLimit, setMinPageLimit] = useState(0);
-  const [maxPageLimit, setMaxPageLimit] = useState(5);
+  const [maxPageLimit, setMaxPageLimit] = useState(3);
 
   const paginationAttributes = {
     minPageLimit,
@@ -25,11 +29,29 @@ const ProductsPage = ({
     currentPage,
   };
 
+  const onPrevClick = () => {
+    if ((Number(currentPage) - 2) % PAGE_NUM_LIMIT === 0) {
+      setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
+      setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
+    }
+  };
+
+  const onNextClick = () => {
+    if (Number(currentPage) > maxPageLimit) {
+      setMaxPageLimit(maxPageLimit + PAGE_NUM_LIMIT);
+      setMinPageLimit(minPageLimit + PAGE_NUM_LIMIT);
+    }
+  };
+
   return (
     <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG {...paginationAttributes} />
+        <PaginationSSG
+          {...paginationAttributes}
+          onPrevClick={onPrevClick}
+          onNextClick={onNextClick}
+        />
         {router.isFallback ? (
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
