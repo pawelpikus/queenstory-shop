@@ -125,6 +125,7 @@ export interface StoreAPIResponse {
   price: number;
   description: string;
   category: string;
+  longDescription: string;
   image: string;
   rating: Rating;
 }

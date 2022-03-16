@@ -47,6 +47,7 @@ const ProductIdPage = ({
                 category: data.category,
                 price: data.price,
                 desc: data.description,
+                longDesc: data.longDescription,
                 rating: data.rating.rate,
               }}
             />
@@ -108,6 +109,7 @@ export interface StoreAPIResponse {
   category: string;
   image: string;
   rating: Rating;
+  longDescription: string;
 }
 
 export interface Rating {
