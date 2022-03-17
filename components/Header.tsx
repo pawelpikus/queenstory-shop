@@ -9,7 +9,7 @@ export const Header = () => {
         <Link href={routes.HOME}>
           <a className="mr-24 transition-colors hover:text-white">Home</a>
         </Link>
-        <Link href={routes.PRODUCTS}>
+        <Link href={`${routes.PRODUCTS}/${1}`}>
           <a className="mr-24 transition-colors hover:text-white">
             Products (SSG)
           </a>

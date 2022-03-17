@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { routes } from "../routes/routes";
 
 type PaginationProps = {
   currentPage?: string;
@@ -17,7 +18,7 @@ const PaginationSSG = ({
   const { currentPage, minPageLimit, maxPageLimit, totalPages } =
     paginationAttributes;
   const currentPageNum = Number(currentPage) || 0;
-  console.log(currentPageNum);
+
   const pages = [...new Array(totalPages)].map((_, i) => i + 1);
 
   const handlePrevClick = () => {
@@ -33,7 +34,9 @@ const PaginationSSG = ({
       <div className="flex items-center w-full gap-4">
         <Link
           href={
-            currentPageNum > 1 ? `/products/${currentPageNum - 1}` : `/products`
+            currentPageNum > 1
+              ? `${routes.PRODUCTS}/${currentPageNum - 1}`
+              : `${routes.PRODUCTS}/1`
           }
         >
           <a
@@ -44,10 +47,10 @@ const PaginationSSG = ({
           </a>
         </Link>
         <div className="items-baseline hidden md:-mt-px md:flex">
-          <Link href={`/products/`}>
+          <Link href={`${routes.PRODUCTS}/1`}>
             <a
               className={`${
-                !currentPage
+                currentPage === "1"
                   ? `text-emerald-700 border-t-2 border-emerald-600`
                   : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
               } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
@@ -57,9 +60,9 @@ const PaginationSSG = ({
           </Link>
           {minPageLimit >= 1 ? <div>&hellip;</div> : null}
           {pages.map((page) => {
-            if (page <= maxPageLimit && page > minPageLimit) {
+            if (page < maxPageLimit && page >= minPageLimit) {
               return (
-                <Link key={page} href={`/products/${page + 1}`}>
+                <Link key={page} href={`${routes.PRODUCTS}/${page + 1}`}>
                   <a
                     className={`${
                       currentPage === String(page + 1)
@@ -77,7 +80,7 @@ const PaginationSSG = ({
           })}
           {pages.length > maxPageLimit ? <div>&hellip;</div> : null}
 
-          <Link href={`/products/${totalPages}`}>
+          <Link href={`${routes.PRODUCTS}/${totalPages}`}>
             <a
               className={`${
                 !currentPage

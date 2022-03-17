@@ -22,6 +22,7 @@ const ProductsPage = ({
   const [minPageLimit, setMinPageLimit] = useState(0);
   const [maxPageLimit, setMaxPageLimit] = useState(3);
 
+  console.log(currentPage);
   const paginationAttributes = {
     minPageLimit,
     maxPageLimit,
@@ -30,14 +31,14 @@ const ProductsPage = ({
   };
 
   const onPrevClick = () => {
-    if ((Number(currentPage) - 2) % PAGE_NUM_LIMIT === 0) {
+    if ((Number(currentPage) - 1) % PAGE_NUM_LIMIT === 0) {
       setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
     }
   };
 
   const onNextClick = () => {
-    if (Number(currentPage) > maxPageLimit) {
+    if (Number(currentPage) + 1 > maxPageLimit) {
       setMaxPageLimit(maxPageLimit + PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit + PAGE_NUM_LIMIT);
     }
@@ -104,7 +105,7 @@ export const getStaticProps = async ({
       notFound: true,
     };
   }
-  let OFFSET = ITEMS_PER_PAGE * Number(params.currentPage);
+  let OFFSET = ITEMS_PER_PAGE * Number(params.currentPage) - ITEMS_PER_PAGE;
   const res = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${ITEMS_PER_PAGE}&offset=${OFFSET}`
   );
