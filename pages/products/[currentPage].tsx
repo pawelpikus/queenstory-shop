@@ -19,26 +19,19 @@ const ProductsPage = ({
   totalPages,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  const [minPageLimit, setMinPageLimit] = useState(0);
-  const [maxPageLimit, setMaxPageLimit] = useState(3);
-  const [activePage, setActivePage] = useState(currentPage);
+  let currentPageNum = Number(currentPage) || 0;
+  const [minPageLimit, setMinPageLimit] = useState(currentPageNum);
+  const [maxPageLimit, setMaxPageLimit] = useState(currentPageNum + 5);
+  const [activePage, setActivePage] = useState(
+    router.query.currentPage as string
+  );
 
   useEffect(() => {
-    setActivePage(currentPage);
-  }, [currentPage]);
-
-  const paginationAttributes = {
-    minPageLimit,
-    maxPageLimit,
-    totalPages,
-    activePage: currentPage,
-  };
+    if (currentPageNum) setActivePage(currentPageNum.toString());
+  }, [currentPageNum]);
 
   const onPrevClick = () => {
-    if (
-      Number(activePage) > 1 &&
-      (Number(activePage) - 1) % PAGE_NUM_LIMIT === 0
-    ) {
+    if ((Number(activePage) - 1) % PAGE_NUM_LIMIT === 0) {
       setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
     }
@@ -56,7 +49,10 @@ const ProductsPage = ({
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
         <PaginationSSG
-          {...paginationAttributes}
+          minPageLimit={minPageLimit}
+          maxPageLimit={maxPageLimit}
+          totalPages={totalPages}
+          activePage={activePage}
           onPrevClick={onPrevClick}
           onNextClick={onNextClick}
         />

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { routes } from "../routes/routes";
 
 type PaginationProps = {
-  activePage?: string;
+  activePage: string;
   totalPages: number | undefined;
   minPageLimit: number;
   maxPageLimit: number;
@@ -13,14 +13,14 @@ type PaginationProps = {
 const PaginationSSG = ({
   onNextClick,
   onPrevClick,
-  ...paginationAttributes
+  activePage,
+  minPageLimit,
+  maxPageLimit,
+  totalPages,
 }: PaginationProps) => {
-  const { activePage, minPageLimit, maxPageLimit, totalPages } =
-    paginationAttributes;
   const currentPageNum = Number(activePage) || 0;
-  const pages = [...new Array(totalPages)].map((_, i) => i + 1);
 
-  console.log(activePage);
+  const pages = [...new Array(totalPages)].map((_, i) => i + 1);
 
   const handlePrevClick = () => {
     onPrevClick();
@@ -54,6 +54,7 @@ const PaginationSSG = ({
         <div className="items-baseline hidden md:-mt-px md:flex">
           <Link href={`${routes.PRODUCTS}/1`}>
             <a
+              onClick={handlePrevClick}
               className={`${
                 currentPageNum === 1
                   ? `text-emerald-700 border-t-2 border-emerald-600`

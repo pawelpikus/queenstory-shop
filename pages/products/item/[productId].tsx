@@ -13,6 +13,10 @@ const ProductIdPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
 
+  const handleGoBack = () => {
+    router.back();
+  };
+
   if (!data) {
     return (
       <>
@@ -31,7 +35,7 @@ const ProductIdPage = ({
         <button
           className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
           type="button"
-          onClick={() => router.back()}
+          onClick={handleGoBack}
         >
           &#8592; Back
         </button>
