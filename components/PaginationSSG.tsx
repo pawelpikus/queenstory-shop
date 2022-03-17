@@ -2,7 +2,7 @@ import Link from "next/link";
 import { routes } from "../routes/routes";
 
 type PaginationProps = {
-  currentPage?: string;
+  activePage?: string;
   totalPages: number | undefined;
   minPageLimit: number;
   maxPageLimit: number;
@@ -15,11 +15,12 @@ const PaginationSSG = ({
   onPrevClick,
   ...paginationAttributes
 }: PaginationProps) => {
-  const { currentPage, minPageLimit, maxPageLimit, totalPages } =
+  const { activePage, minPageLimit, maxPageLimit, totalPages } =
     paginationAttributes;
-  const currentPageNum = Number(currentPage) || 0;
-
+  const currentPageNum = Number(activePage) || 0;
   const pages = [...new Array(totalPages)].map((_, i) => i + 1);
+
+  console.log(activePage);
 
   const handlePrevClick = () => {
     onPrevClick();
@@ -41,7 +42,11 @@ const PaginationSSG = ({
         >
           <a
             onClick={handlePrevClick}
-            className="mx-4 font-semibold transition-colors hover:text-emerald-600 "
+            className={` ${
+              currentPageNum <= 1
+                ? `pointer-events-none text-neutral-400`
+                : null
+            }  mx-4 font-semibold transition-colors hover:text-emerald-600`}
           >
             Previous Page
           </a>
@@ -50,7 +55,7 @@ const PaginationSSG = ({
           <Link href={`${routes.PRODUCTS}/1`}>
             <a
               className={`${
-                currentPage === "1"
+                currentPageNum === 1
                   ? `text-emerald-700 border-t-2 border-emerald-600`
                   : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
               } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
@@ -65,7 +70,7 @@ const PaginationSSG = ({
                 <Link key={page} href={`${routes.PRODUCTS}/${page + 1}`}>
                   <a
                     className={`${
-                      currentPage === String(page + 1)
+                      activePage === String(page + 1)
                         ? `text-emerald-700 border-t-2 border-emerald-600`
                         : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
                     } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
@@ -83,7 +88,7 @@ const PaginationSSG = ({
           <Link href={`${routes.PRODUCTS}/${totalPages}`}>
             <a
               className={`${
-                !currentPage
+                !activePage
                   ? `text-emerald-700 border-t-2 border-emerald-600`
                   : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
               } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}

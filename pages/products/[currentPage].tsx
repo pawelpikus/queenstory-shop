@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
@@ -21,24 +21,31 @@ const ProductsPage = ({
   const router = useRouter();
   const [minPageLimit, setMinPageLimit] = useState(0);
   const [maxPageLimit, setMaxPageLimit] = useState(3);
+  const [activePage, setActivePage] = useState(currentPage);
 
-  console.log(currentPage);
+  useEffect(() => {
+    setActivePage(currentPage);
+  }, [currentPage]);
+
   const paginationAttributes = {
     minPageLimit,
     maxPageLimit,
     totalPages,
-    currentPage,
+    activePage: currentPage,
   };
 
   const onPrevClick = () => {
-    if ((Number(currentPage) - 1) % PAGE_NUM_LIMIT === 0) {
+    if (
+      Number(activePage) > 1 &&
+      (Number(activePage) - 1) % PAGE_NUM_LIMIT === 0
+    ) {
       setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
     }
   };
 
   const onNextClick = () => {
-    if (Number(currentPage) + 1 > maxPageLimit) {
+    if (Number(activePage) + 1 > maxPageLimit) {
       setMaxPageLimit(maxPageLimit + PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit + PAGE_NUM_LIMIT);
     }
