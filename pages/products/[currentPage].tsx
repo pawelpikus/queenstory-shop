@@ -19,26 +19,26 @@ const ProductsPage = ({
   totalPages,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  let currentPageNum = Number(currentPage) || 0;
+  const currentPageNum = Number(currentPage);
   const [minPageLimit, setMinPageLimit] = useState(currentPageNum);
-  const [maxPageLimit, setMaxPageLimit] = useState(currentPageNum + 5);
-  const [activePage, setActivePage] = useState(
-    router.query.currentPage as string
+  const [maxPageLimit, setMaxPageLimit] = useState(
+    currentPageNum + PAGE_NUM_LIMIT
   );
 
   useEffect(() => {
-    if (currentPageNum) setActivePage(currentPageNum.toString());
+    setMinPageLimit(currentPageNum);
+    setMaxPageLimit(currentPageNum + PAGE_NUM_LIMIT);
   }, [currentPageNum]);
 
   const onPrevClick = () => {
-    if ((Number(activePage) - 1) % PAGE_NUM_LIMIT === 0) {
+    if (currentPageNum % PAGE_NUM_LIMIT === 0) {
       setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
     }
   };
 
   const onNextClick = () => {
-    if (Number(activePage) + 1 > maxPageLimit) {
+    if (currentPageNum > maxPageLimit) {
       setMaxPageLimit(maxPageLimit + PAGE_NUM_LIMIT);
       setMinPageLimit(minPageLimit + PAGE_NUM_LIMIT);
     }
@@ -52,7 +52,7 @@ const ProductsPage = ({
           minPageLimit={minPageLimit}
           maxPageLimit={maxPageLimit}
           totalPages={totalPages}
-          activePage={activePage}
+          activePage={currentPageNum}
           onPrevClick={onPrevClick}
           onNextClick={onNextClick}
         />
