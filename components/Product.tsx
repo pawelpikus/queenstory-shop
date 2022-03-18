@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatter } from "../utils/priceFormatter";
+import ReactMarkdown from "react-markdown";
 
 interface ProductDetails {
   page?: string;
@@ -12,6 +13,7 @@ interface ProductDetails {
   price: number;
   rating: number;
   category: string;
+  longDesc: string;
 }
 
 interface ProductProps {
@@ -75,19 +77,23 @@ export const ProductDetails = ({ data }: ProductProps) => {
             alt={data.title}
           />
         </div>
-        <h3 className="mb-2 text-2xl font-bold text-center text-neutral-800">
-          {data.title}
-        </h3>
-        <h4 className="mb-4 text-lg text-center font-narrow text-neutral-500">
-          {data.category}
-        </h4>
+        <article className="prose prose-neutral ">
+          <h1 className="mb-0 text-center">{data.title}</h1>
+          <h3 className="mt-0 mb-6 text-center font-narrow text-neutral-500">
+            {data.category}
+          </h3>
 
-        <p className="mb-6 text-lg font-thin text-neutral-800">{data.desc}</p>
+          <p>{data.desc}</p>
+          <div>
+            <ReactMarkdown>{data.longDesc}</ReactMarkdown>
+          </div>
+        </article>
       </div>
       <div className="flex items-center justify-between w-full">
         <p className="p-2 text-lg font-semibold rounded-md text-neutral-600 bg-neutral-200">
           {data.rating} &#9733;
         </p>
+
         <p className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
           {formatter.format(data.price)}
         </p>

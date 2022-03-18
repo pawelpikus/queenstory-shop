@@ -6,11 +6,16 @@ import React from "react";
 import { Footer } from "../../../components/Footer";
 import { Header } from "../../../components/Header";
 import { ProductDetails } from "../../../components/Product";
+import { ProductSkeleton } from "../../../components/ProductSkeleton";
 
 const ProductIdPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
 
   if (!data) {
     return (
@@ -30,24 +35,27 @@ const ProductIdPage = ({
         <button
           className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
           type="button"
-          onClick={() => router.back()}
+          onClick={handleGoBack}
         >
           &#8592; Back
         </button>
         {router.isFallback ? (
-          <div>Loading...</div>
+          <ProductSkeleton />
         ) : (
-          <ProductDetails
-            data={{
-              id: data.id,
-              title: data.title,
-              imgSrc: data.image,
-              category: data.category,
-              price: data.price,
-              desc: data.description,
-              rating: data.rating.rate,
-            }}
-          />
+          data && (
+            <ProductDetails
+              data={{
+                id: data.id,
+                title: data.title,
+                imgSrc: data.image,
+                category: data.category,
+                price: data.price,
+                desc: data.description,
+                longDesc: data.longDescription,
+                rating: data.rating.rate,
+              }}
+            />
+          )
         )}
       </div>
       <Footer />
@@ -65,7 +73,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -83,6 +91,13 @@ export const getStaticProps = async ({
   );
   const data: StoreAPIResponse | null = await res.json();
 
+  if (!data) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       data,
@@ -98,6 +113,7 @@ export interface StoreAPIResponse {
   category: string;
   image: string;
   rating: Rating;
+  longDescription: string;
 }
 
 export interface Rating {

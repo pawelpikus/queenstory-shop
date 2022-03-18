@@ -1,40 +1,85 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
-import { ITEMS_PER_PAGE, PAGES_COUNT } from "../../utils/consts";
+import { ProductSkeleton } from "../../components/ProductSkeleton";
+import {
+  ITEMS_PER_PAGE,
+  PAGES_COUNT,
+  PAGE_NUM_LIMIT,
+} from "../../utils/consts";
+import { FAKE_PRODUCT_COUNT } from "../../utils/consts";
 
 const ProductsPage = ({
   data,
   currentPage,
+  totalPages,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+  const currentPageNum = Number(currentPage);
+  const [minPageLimit, setMinPageLimit] = useState(currentPageNum);
+  const [maxPageLimit, setMaxPageLimit] = useState(
+    currentPageNum + PAGE_NUM_LIMIT
+  );
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    setMinPageLimit(currentPageNum);
+    setMaxPageLimit(currentPageNum + PAGE_NUM_LIMIT);
+  }, [currentPageNum]);
+
+  const onPrevClick = () => {
+    if (currentPageNum % PAGE_NUM_LIMIT === 0) {
+      setMaxPageLimit(maxPageLimit - PAGE_NUM_LIMIT);
+      setMinPageLimit(minPageLimit - PAGE_NUM_LIMIT);
+    }
+  };
+
+  const onNextClick = () => {
+    if (currentPageNum > maxPageLimit) {
+      setMaxPageLimit(maxPageLimit + PAGE_NUM_LIMIT);
+      setMinPageLimit(minPageLimit + PAGE_NUM_LIMIT);
+    }
+  };
+
   return (
     <div className=" bg-neutral-50">
       <Header />
       <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG currentPage={currentPage} />
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data &&
-            data.map((item) => (
-              <li key={item.id}>
-                <ProductListItem
-                  id={item.id}
-                  title={item.title}
-                  imgSrc={item.image}
-                  category={item.category}
-                  price={item.price}
-                />
+        <PaginationSSG
+          minPageLimit={minPageLimit}
+          maxPageLimit={maxPageLimit}
+          totalPages={totalPages}
+          activePage={currentPageNum}
+          onPrevClick={onPrevClick}
+          onNextClick={onNextClick}
+        />
+        {router.isFallback ? (
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+              <li key={i}>
+                <ProductSkeleton />
               </li>
             ))}
-        </ul>
+          </ul>
+        ) : (
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {data &&
+              data.map((item) => (
+                <li key={item.id}>
+                  <ProductListItem
+                    id={item.id}
+                    title={item.title}
+                    imgSrc={item.image}
+                    category={item.category}
+                    price={item.price}
+                  />
+                </li>
+              ))}
+          </ul>
+        )}
       </div>
       <Footer />
     </div>
@@ -63,7 +108,7 @@ export const getStaticProps = async ({
       notFound: true,
     };
   }
-  let OFFSET = ITEMS_PER_PAGE * Number(params.currentPage);
+  let OFFSET = ITEMS_PER_PAGE * Number(params.currentPage) - ITEMS_PER_PAGE;
   const res = await fetch(
     `https://naszsklep-api.vercel.app/api/products?take=${ITEMS_PER_PAGE}&offset=${OFFSET}`
   );
@@ -73,6 +118,7 @@ export const getStaticProps = async ({
     props: {
       data,
       currentPage: params.currentPage,
+      totalPages: 160,
     },
   };
 };
@@ -83,6 +129,7 @@ export interface StoreAPIResponse {
   price: number;
   description: string;
   category: string;
+  longDescription: string;
   image: string;
   rating: Rating;
 }

@@ -16,8 +16,8 @@ const Home = () => {
               <h1 className="mb-4 text-4xl font-extrabold md:text-6xl lg:text-7xl">
                 Discover the beauty within.
               </h1>
-              <Link href={routes.PRODUCTS}>
-                <a className="px-12 py-4 font-bold text-white border-none rounded shadow-lg transition-color bg-neutral-800 hover:bg-gradient-to-br from-emerald-500 to-emerald-800 ">
+              <Link href={`${routes.PRODUCTS}/1`}>
+                <a className="px-12 py-4 font-bold text-white transition-colors border-none rounded shadow-lg bg-neutral-800 hover:bg-gradient-to-tl from-emerald-500 to-emerald-800 ">
                   Explore
                 </a>
               </Link>
