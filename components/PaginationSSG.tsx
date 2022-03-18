@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { routes } from "../routes/routes";
-import { PAGE_THRESHOLD } from "../utils/consts";
+import { LEFT_RIGHT } from "../utils/consts";
 
 type PaginationProps = {
   activePage: number;
@@ -71,11 +71,11 @@ const PaginationSSG = ({
                 </a>
               </Link>
 
-              {minPageLimit > PAGE_THRESHOLD + 1 ? <div>&hellip;</div> : null}
+              {minPageLimit > LEFT_RIGHT + 1 ? <div>&hellip;</div> : null}
               {pages.map((page) => {
                 if (
-                  page < maxPageLimit - PAGE_THRESHOLD &&
-                  page >= minPageLimit - PAGE_THRESHOLD
+                  page < maxPageLimit - LEFT_RIGHT &&
+                  page >= minPageLimit - LEFT_RIGHT
                 ) {
                   return (
                     <Link key={page} href={`${routes.PRODUCTS}/${page + 1}`}>
@@ -94,7 +94,7 @@ const PaginationSSG = ({
                   return null;
                 }
               })}
-              {pages.length > maxPageLimit - (PAGE_THRESHOLD + 1) ? (
+              {pages.length > maxPageLimit - (LEFT_RIGHT + 1) ? (
                 <div>&hellip;</div>
               ) : null}
 
