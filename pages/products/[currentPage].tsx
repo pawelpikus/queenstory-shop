@@ -1,7 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
 import { ProductSkeleton } from "../../components/ProductSkeleton";
