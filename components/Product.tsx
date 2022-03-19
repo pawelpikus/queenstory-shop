@@ -4,6 +4,7 @@ import Link from "next/link";
 import { formatter } from "../utils/priceFormatter";
 import ReactMarkdown from "react-markdown";
 import { NextSeo } from "next-seo";
+import MyReactMarkDown from "./MyReactMarkDown";
 
 interface ProductDetails {
   page?: string;
@@ -70,9 +71,9 @@ export const ProductDetails = ({ data }: ProductProps) => {
       <NextSeo
         title={data.title}
         description={data.desc}
-        canonical={`https://queenstory-shop.vercel.app/products/${data.id}`}
+        canonical={`https://queenstory-shop-jkjloayc9-pawelpikus.vercel.app/products/item/${data.id}`}
         openGraph={{
-          url: `https://queenstory-shop.vercel.app/products/${data.id}`,
+          url: `https://queenstory-shop-jkjloayc9-pawelpikus.vercel.app/products/item/${data.id}`,
           title: data.title,
           description: data.desc,
           images: [
@@ -105,6 +106,9 @@ export const ProductDetails = ({ data }: ProductProps) => {
 
             <p>{data.desc}</p>
             <div>
+              <MyReactMarkDown>
+                {`[link to product 2](/products/item/2)`}
+              </MyReactMarkDown>
               <ReactMarkdown>{data.longDesc}</ReactMarkdown>
             </div>
           </article>

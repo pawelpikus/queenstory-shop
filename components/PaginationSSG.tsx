@@ -52,12 +52,12 @@ const PaginationSSG = ({
                   currentPageNum <= 1
                     ? `pointer-events-none text-neutral-400`
                     : null
-                }  mx-4 font-semibold transition-colors hover:text-emerald-600`}
+                }   font-semibold p-4 transition-colors hover:text-emerald-600`}
               >
                 Previous Page
               </a>
             </Link>
-            <div className="items-baseline hidden md:-mt-px md:flex">
+            <div className="flex items-baseline">
               <Link href={`${routes.PRODUCTS}/1`}>
                 <a
                   onClick={handlePrevClick}
@@ -65,7 +65,7 @@ const PaginationSSG = ({
                     currentPageNum === 1
                       ? `text-emerald-700 border-t-2 border-emerald-600`
                       : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
-                  } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+                  } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
                 >
                   1
                 </a>
@@ -84,7 +84,7 @@ const PaginationSSG = ({
                           currentPageNum === page + 1
                             ? `text-emerald-700 border-t-2 border-emerald-600`
                             : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
-                        } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+                        } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
                       >
                         {page + 1}
                       </a>
@@ -124,7 +124,7 @@ const PaginationSSG = ({
                   currentPageNum === totalPages
                     ? `pointer-events-none text-neutral-400`
                     : null
-                } mx-4 font-semibold transition-colors hover:text-emerald-600`}
+                } p-4 font-semibold transition-colors hover:text-emerald-600`}
               >
                 Next Page
               </a>
