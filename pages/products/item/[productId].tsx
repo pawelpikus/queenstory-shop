@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { ProductDetails } from "../../../components/Product";
 import { ProductSkeleton } from "../../../components/ProductSkeleton";
+import { serialize } from "next-mdx-remote/serialize";
 
 const ProductIdPage = ({
   data,
@@ -94,7 +95,10 @@ export const getStaticProps = async ({
 
   return {
     props: {
-      data,
+      data: {
+        ...data,
+        longDescription: await serialize(data.longDescription),
+      },
     },
   };
 };

@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatter } from "../utils/priceFormatter";
-import ReactMarkdown from "react-markdown";
 import { NextSeo } from "next-seo";
 import MyReactMarkDown from "./MyReactMarkDown";
+import { MarkDownResult } from "../utils/types";
 
 interface ProductDetails {
   page?: string;
@@ -15,7 +15,7 @@ interface ProductDetails {
   price: number;
   rating: number;
   category: string;
-  longDesc: string;
+  longDesc: MarkDownResult;
 }
 
 interface ProductProps {
@@ -103,14 +103,8 @@ export const ProductDetails = ({ data }: ProductProps) => {
             <h3 className="mt-0 mb-6 text-center font-narrow text-neutral-500">
               {data.category}
             </h3>
-
             <p>{data.desc}</p>
-            <div>
-              <MyReactMarkDown>
-                {`[link to product 2](/products/item/2)`}
-              </MyReactMarkDown>
-              <ReactMarkdown>{data.longDesc}</ReactMarkdown>
-            </div>
+            <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
           </article>
         </div>
         <div className="flex items-center justify-between w-full">
