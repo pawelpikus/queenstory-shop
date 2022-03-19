@@ -3,8 +3,7 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import { Footer } from "../../../components/Footer";
-import { Header } from "../../../components/Header";
+import Layout from "../../../components/Layout";
 import { ProductDetails } from "../../../components/Product";
 import { ProductSkeleton } from "../../../components/ProductSkeleton";
 
@@ -29,36 +28,32 @@ const ProductIdPage = ({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-50">
-      <Header />
-      <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
-        <button
-          className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
-          type="button"
-          onClick={handleGoBack}
-        >
-          &#8592; Back
-        </button>
-        {router.isFallback ? (
-          <ProductSkeleton />
-        ) : (
-          data && (
-            <ProductDetails
-              data={{
-                id: data.id,
-                title: data.title,
-                imgSrc: data.image,
-                category: data.category,
-                price: data.price,
-                desc: data.description,
-                longDesc: data.longDescription,
-                rating: data.rating.rate,
-              }}
-            />
-          )
-        )}
-      </div>
-      <Footer />
+    <div className="max-w-xl mx-auto">
+      <button
+        className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
+        type="button"
+        onClick={handleGoBack}
+      >
+        &#8592; Back
+      </button>
+      {router.isFallback ? (
+        <ProductSkeleton />
+      ) : (
+        data && (
+          <ProductDetails
+            data={{
+              id: data.id,
+              title: data.title,
+              imgSrc: data.image,
+              category: data.category,
+              price: data.price,
+              desc: data.description,
+              longDesc: data.longDescription,
+              rating: data.rating.rate,
+            }}
+          />
+        )
+      )}
     </div>
   );
 };

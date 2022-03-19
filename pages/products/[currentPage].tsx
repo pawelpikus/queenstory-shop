@@ -1,8 +1,7 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
+import Layout from "../../components/Layout";
 import PaginationSSG from "../../components/PaginationSSG";
 import { ProductListItem } from "../../components/Product";
 import { ProductSkeleton } from "../../components/ProductSkeleton";
@@ -45,43 +44,39 @@ const ProductsPage = ({
   };
 
   return (
-    <div className=" bg-neutral-50">
-      <Header />
-      <div className="flex flex-col items-center w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationSSG
-          minPageLimit={minPageLimit}
-          maxPageLimit={maxPageLimit}
-          totalPages={totalPages}
-          activePage={currentPageNum}
-          onPrevClick={onPrevClick}
-          onNextClick={onNextClick}
-        />
-        {router.isFallback ? (
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
-              <li key={i}>
-                <ProductSkeleton />
+    <div className="max-w-4xl mx-auto ">
+      <PaginationSSG
+        minPageLimit={minPageLimit}
+        maxPageLimit={maxPageLimit}
+        totalPages={totalPages}
+        activePage={currentPageNum}
+        onPrevClick={onPrevClick}
+        onNextClick={onNextClick}
+      />
+      {router.isFallback ? (
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+            <li key={i}>
+              <ProductSkeleton />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {data &&
+            data.map((item) => (
+              <li key={item.id}>
+                <ProductListItem
+                  id={item.id}
+                  title={item.title}
+                  imgSrc={item.image}
+                  category={item.category}
+                  price={item.price}
+                />
               </li>
             ))}
-          </ul>
-        ) : (
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {data &&
-              data.map((item) => (
-                <li key={item.id}>
-                  <ProductListItem
-                    id={item.id}
-                    title={item.title}
-                    imgSrc={item.image}
-                    category={item.category}
-                    price={item.price}
-                  />
-                </li>
-              ))}
-          </ul>
-        )}
-      </div>
-      <Footer />
+        </ul>
+      )}
     </div>
   );
 };
