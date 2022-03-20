@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 type NavLinkMobileProps = {
   children: ReactNode;

@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-type HamburgerProps = {
+type HamburgerBtnProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const Hamburger = ({ open, setOpen }: HamburgerProps) => {
+const HamburgerBtn = ({ open, setOpen }: HamburgerBtnProps) => {
   return (
     <button
       className="relative w-20 h-20 text-white bg-transparent focus:outline-none"
@@ -36,4 +36,4 @@ const Hamburger = ({ open, setOpen }: HamburgerProps) => {
   );
 };
 
-export default Hamburger;
+export default HamburgerBtn;

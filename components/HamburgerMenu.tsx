@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Hamburger from "./Hamburger";
+import { useState } from "react";
+import HamburgerBtn from "./HamburgerBtn";
 import NavLinkMobile from "./NavLinkMobile";
 import { routes } from "../routes/routes";
 
@@ -7,7 +7,7 @@ const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
   return (
     <nav className="sm:hidden w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase font-narrow">
-      <Hamburger open={open} setOpen={setOpen} />
+      <HamburgerBtn open={open} setOpen={setOpen} />
       <div
         className={`${
           open ? `translate-x-0` : `-translate-x-full`
