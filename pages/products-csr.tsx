@@ -32,47 +32,42 @@ const ProductsCSRPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <Header />
-      <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationCSR
-          page={page}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-          isFetching={isFetching}
-        />
-        <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data ? (
-            data.map((item: StoreAPIResponse) => (
-              <li key={item.id}>
-                <ProductListItem
-                  id={item.id}
-                  title={item.title}
-                  imgSrc={item.image}
-                  category={item.category}
-                  price={item.price}
-                />
+    <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
+      <PaginationCSR
+        page={page}
+        setPage={setPage}
+        isPreviousData={isPreviousData}
+        isFetching={isFetching}
+      />
+      <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {data ? (
+          data.map((item: StoreAPIResponse) => (
+            <li key={item.id}>
+              <ProductListItem
+                id={item.id}
+                title={item.title}
+                imgSrc={item.image}
+                category={item.category}
+                price={item.price}
+              />
+            </li>
+          ))
+        ) : (
+          <>
+            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+              <li key={i}>
+                <ProductSkeleton />
               </li>
-            ))
-          ) : (
-            <>
-              {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
-                <li key={i}>
-                  <ProductSkeleton />
-                </li>
-              ))}
-            </>
-          )}
-        </ul>
-        <PaginationCSR
-          page={page}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-          isFetching={isFetching}
-        />
-      </div>
-
-      <Footer />
+            ))}
+          </>
+        )}
+      </ul>
+      <PaginationCSR
+        page={page}
+        setPage={setPage}
+        isPreviousData={isPreviousData}
+        isFetching={isFetching}
+      />
     </div>
   );
 };
