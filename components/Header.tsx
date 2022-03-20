@@ -13,7 +13,7 @@ export const Header = () => {
         <div
           className={`${
             open ? `translate-x-0` : `-translate-x-full`
-          } absolute transition-transform left-0 z-10 flex flex-col items-center justify-start w-full h-screen gap-24 p-4 pt-8 top-28 bg-neutral-300 text-neutral-800`}
+          } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-36 py-24 px-6 top-28 bg-neutral-800 text-white`}
         >
           <Link href={routes.HOME}>
             <a
@@ -23,7 +23,7 @@ export const Header = () => {
               Home
             </a>
           </Link>
-          <Link href={`${routes.PRODUCTS}/${1}`}>
+          <Link href={`${routes.PRODUCTS}/1`}>
             <a
               onClick={() => setOpen(false)}
               className="text-3xl transition-colors hover:text-neutral-700"

@@ -33,7 +33,7 @@ const PaginationSSG = ({
   };
 
   return (
-    <div className="flex flex-col items-center px-4 mt-12 mb-8 border-neutral-200 sm:px-0">
+    <div className="mt-12 mb-8 border-neutral-200">
       <div className="flex items-center justify-center w-full md:gap-4">
         {!activePage ? (
           <div className="font-bold text-neutral-500">Loading...</div>
