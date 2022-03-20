@@ -34,7 +34,7 @@ const PaginationSSG = ({
 
   return (
     <div className="flex flex-col items-center px-4 mt-12 mb-8 border-neutral-200 sm:px-0">
-      <div className="flex items-center justify-center w-full gap-4">
+      <div className="flex items-center justify-center w-full md:gap-4">
         {!activePage ? (
           <div className="font-bold text-neutral-500">Loading...</div>
         ) : (
@@ -52,7 +52,7 @@ const PaginationSSG = ({
                   currentPageNum <= 1
                     ? `pointer-events-none text-neutral-400`
                     : null
-                }   font-semibold p-4 transition-colors hover:text-emerald-600`}
+                }   font-semibold p-3 transition-colors hover:text-emerald-600`}
               >
                 Previous Page
               </a>
@@ -104,7 +104,7 @@ const PaginationSSG = ({
                     activePage === totalPages
                       ? `text-emerald-700 border-t-2 border-emerald-600`
                       : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
-                  } inline-flex items-center p-4 text-sm font-extrabold  border-t-2`}
+                  } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
                 >
                   {totalPages}
                 </a>
@@ -124,7 +124,7 @@ const PaginationSSG = ({
                   currentPageNum === totalPages
                     ? `pointer-events-none text-neutral-400`
                     : null
-                } p-4 font-semibold transition-colors hover:text-emerald-600`}
+                } p-3 font-semibold transition-colors hover:text-emerald-600`}
               >
                 Next Page
               </a>
