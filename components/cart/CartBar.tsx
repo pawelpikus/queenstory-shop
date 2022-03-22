@@ -1,25 +1,15 @@
 import Link from "next/link";
-import { useState } from "react";
-
-interface CartItem {
-  title: string;
-  price: number;
-}
+import { useCartState } from "./cartContext";
 
 const CartBar = () => {
-  const [cart, setCart] = useState<CartItem[]>([
-    {
-      title: "item1",
-      price: 25.2,
-    },
-  ]);
+  const cartState = useCartState();
   return (
-    <div className="flex mr-4 transition-colors text-neutral-200 hover:text-white">
+    <div className="flex items-center mr-4 transition-colors text-neutral-200 hover:text-white">
       <Link href="/cart">
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-12 h-12 "
+            className="w-8 h-8 "
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -27,7 +17,7 @@ const CartBar = () => {
           </svg>
         </a>
       </Link>
-      <div>{cart.length > 0 && cart.length}</div>
+      <div>{cartState.items.length > 0 && cartState.items.length}</div>
     </div>
   );
 };
