@@ -11,7 +11,7 @@ const HamburgerMenu = () => {
       <div
         className={`${
           open ? `translate-x-0` : `-translate-x-full`
-        } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-36 py-24 px-6 top-28 bg-neutral-800 text-white`}
+        } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-24 h-screen py-24 px-6 top-22 bg-neutral-800 text-white`}
       >
         <NavLinkMobile href={routes.HOME} setOpen={setOpen}>
           Home
