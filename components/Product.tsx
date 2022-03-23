@@ -5,6 +5,7 @@ import { formatter } from "../utils/priceFormatter";
 import { NextSeo } from "next-seo";
 import MyReactMarkDown from "./MyReactMarkDown";
 import { MarkDownResult } from "../utils/types";
+import { useCartState } from "./cart/cartContext";
 
 interface ProductDetails {
   page?: string;
@@ -34,9 +35,10 @@ export const ProductListItem = ({
   category,
   price,
 }: ProductListItem) => {
+  const { addCartItem } = useCartState();
   return (
     <div className="w-full p-4 my-4 bg-white rounded-lg shadow-xl md:p-5 lg:p-6">
-      <div className="flex flex-col items-center justify-between w-full h-full">
+      <div className="flex flex-col items-center justify-between w-full h-full ">
         <div className="block w-full px-2 py-4 bg-white rounded-lg ">
           <Image
             src={imgSrc}
@@ -57,9 +59,17 @@ export const ProductListItem = ({
             {category}
           </h4>
         </div>
-        <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
-          {formatter.format(price)}
-        </p>
+        <div className="flex items-baseline justify-between w-full">
+          <button
+            onClick={() => addCartItem({ title, price })}
+            className="px-4 py-2 font-semibold transition-all bg-transparent border rounded hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
+          >
+            Add to cart
+          </button>
+          <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
+            {formatter.format(price)}
+          </p>
+        </div>
       </div>
     </div>
   );

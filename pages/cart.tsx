@@ -5,7 +5,8 @@ const CartPage = () => {
   const { items } = useCartState();
 
   return (
-    <div className="flex flex-col items-center gap-2 my-4">
+    <div className="flex flex-col items-start gap-2 my-4">
+      <h1 className="text-lg font-bold">Shopping cart</h1>
       <ul>
         {items.map((item, i) => (
           <li key={`${item.title}_${i}`}>
