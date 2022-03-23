@@ -4,7 +4,7 @@ import { SiFacebook, SiInstagram, SiYoutube } from "react-icons/si";
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col justify-end py-20 font-sans bg-neutral-800">
+    <footer className="flex flex-col justify-end py-8 font-sans bg-neutral-800">
       <div className="flex flex-col items-center w-4/5 mx-auto text-center">
         <p className="mb-4 text-emerald-500">
           <strong>queenstory.pl</strong> &copy; Copyright 2022. All rights

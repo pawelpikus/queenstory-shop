@@ -29,7 +29,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 export const useCartState = () => {
   const cartState = useContext(CartContext);
   if (!cartState) {
-    throw new Error("Please provide CartContextProvider.");
+    throw new Error("There's no context provider.");
   }
 
   return cartState;

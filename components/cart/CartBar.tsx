@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useCartState } from "./cartContext";
 
 const CartBar = () => {
-  const cartState = useCartState();
+  const { items } = useCartState();
   return (
     <div className="flex items-center mr-4 transition-colors text-neutral-200 hover:text-white">
       <Link href="/cart">
@@ -17,7 +17,7 @@ const CartBar = () => {
           </svg>
         </a>
       </Link>
-      <div>{cartState.items.length > 0 && cartState.items.length}</div>
+      <div>{items.length > 0 && items.length}</div>
     </div>
   );
 };

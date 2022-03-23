@@ -7,7 +7,7 @@ import { routes } from "../routes/routes";
 
 const Home = () => {
   return (
-    <div className="flex items-center w-full gap-8">
+    <div className="flex items-center w-full gap-8 mt-8">
       <div className="flex flex-col items-start justify-center w-full gap-6">
         <h1 className="mb-4 text-4xl font-extrabold md:text-6xl lg:text-7xl">
           Discover the beauty within.
@@ -18,15 +18,16 @@ const Home = () => {
           </a>
         </Link>
       </div>
-      <div className="flex flex-col items-center justify-center w-full ml-8">
-        <div className="rounded-lg shadow-lg bg-neutral-800 w-fit">
-          <Image
-            src={logo}
-            alt="Queen Story logo"
-            className="max-w-full rounded-lg"
-            priority
-          />
-        </div>
+      <div className="block w-full my-6 rounded-lg bg-neutral-50">
+        <Image
+          src={logo}
+          layout="responsive"
+          width={16}
+          height={9}
+          objectFit="contain"
+          alt="Queen Story logo"
+          priority
+        />
       </div>
     </div>
   );
