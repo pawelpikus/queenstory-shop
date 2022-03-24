@@ -46,7 +46,7 @@ const ProductsPage = ({
   return (
     <>
       <SecondaryBg />
-      <div className="w-11/12 max-w-4xl mx-auto ">
+      <div className="w-11/12 mx-auto max-w-7xl ">
         <PaginationSSG
           minPageLimit={minPageLimit}
           maxPageLimit={maxPageLimit}
@@ -56,7 +56,7 @@ const ProductsPage = ({
           onNextClick={onNextClick}
         />
         {router.isFallback ? (
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
               <li key={i}>
                 <ProductSkeleton />
@@ -64,7 +64,7 @@ const ProductsPage = ({
             ))}
           </ul>
         ) : (
-          <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {data &&
               data.map((item) => (
                 <li key={item.id}>
