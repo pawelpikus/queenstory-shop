@@ -76,6 +76,14 @@ const ProductsPage = ({
             ))}
         </ul>
       )}
+      <PaginationSSG
+        minPageLimit={minPageLimit}
+        maxPageLimit={maxPageLimit}
+        totalPages={totalPages}
+        activePage={currentPageNum}
+        onPrevClick={onPrevClick}
+        onNextClick={onNextClick}
+      />
     </div>
   );
 };

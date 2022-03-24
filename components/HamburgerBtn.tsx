@@ -11,7 +11,7 @@ const HamburgerBtn = ({ open, setOpen }: HamburgerBtnProps) => {
       className="relative text-white bg-transparent w-14 h-14 focus:outline-none"
       onClick={() => setOpen(!open)}
     >
-      <span className="sr-only">Open main menu</span>
+      <span className="sr-only">Otwórz menu główne</span>
       <div className="absolute translate-x-3.5">
         <span
           aria-hidden="true"

@@ -59,12 +59,12 @@ export const ProductListItem = ({
             {category}
           </h4>
         </div>
-        <div className="flex items-baseline justify-between w-full">
+        <div className="flex items-baseline justify-between w-full mt-4">
           <button
             onClick={() => addCartItem({ title, price })}
-            className="px-4 py-2 font-semibold transition-all bg-transparent border rounded hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
+            className="px-2 py-1 font-semibold transition-all bg-transparent border rounded hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
           >
-            Add to cart
+            Dodaj do koszyka
           </button>
           <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
             {formatter.format(price)}

@@ -23,7 +23,7 @@ const PaginationCSR = ({
           disabled={page === 0}
           className="mx-4 font-semibold transition-colors hover:text-emerald-600 "
         >
-          Previous Page
+          Poprzednia
         </button>
         <div className="hidden md:-mt-px md:flex">
           {Array.from({ length: PAGES_COUNT }, (_, i) => {
@@ -52,11 +52,11 @@ const PaginationCSR = ({
           }}
           disabled={isPreviousData || page > PAGES_COUNT - 2}
         >
-          Next Page
+          Następna
         </button>
       </div>
       <div className="w-full h-6 text-center">
-        {isFetching ? <p>Loading...</p> : null}
+        {isFetching ? <p>Wczytuję...</p> : null}
       </div>
     </div>
   );

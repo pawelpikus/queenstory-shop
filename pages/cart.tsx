@@ -6,7 +6,7 @@ const CartPage = () => {
 
   return (
     <div className="flex flex-col items-start gap-2 my-4">
-      <h1 className="text-lg font-bold">Shopping cart</h1>
+      <h1 className="text-lg font-bold">Koszyk</h1>
       <ul>
         {items.map((item, i) => (
           <li key={`${item.title}_${i}`}>

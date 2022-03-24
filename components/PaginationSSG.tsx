@@ -54,10 +54,10 @@ const PaginationSSG = ({
                     : null
                 }   font-semibold p-3 transition-colors hover:text-emerald-600`}
               >
-                Previous Page
+                Poprzednia
               </a>
             </Link>
-            <div className="flex items-baseline">
+            <div className="items-baseline hidden  sm:flex">
               <Link href={`${routes.PRODUCTS}/1`}>
                 <a
                   onClick={handlePrevClick}
@@ -126,7 +126,7 @@ const PaginationSSG = ({
                     : null
                 } p-3 font-semibold transition-colors hover:text-emerald-600`}
               >
-                Next Page
+                Następna
               </a>
             </Link>
           </>

@@ -14,13 +14,13 @@ const HamburgerMenu = () => {
         } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-24 h-screen py-24 px-6 top-22 bg-neutral-800 text-white`}
       >
         <NavLinkMobile href={routes.HOME} setOpen={setOpen}>
-          Home
+          Główna
         </NavLinkMobile>
         <NavLinkMobile href={`${routes.PRODUCTS}/1`} setOpen={setOpen}>
-          Products (SSG)
+          Produkty (SSG)
         </NavLinkMobile>
         <NavLinkMobile href={routes.PRODUCTS_CSR} setOpen={setOpen}>
-          Products (CSR)
+          Produkty (CSR)
         </NavLinkMobile>
       </div>
     </nav>
