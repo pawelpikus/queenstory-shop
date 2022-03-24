@@ -43,7 +43,7 @@ const ProductsPage = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto ">
+    <div className="w-11/12 max-w-4xl mx-auto ">
       <PaginationSSG
         minPageLimit={minPageLimit}
         maxPageLimit={maxPageLimit}

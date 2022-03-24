@@ -51,7 +51,7 @@ export const ProductListItem = ({
         </div>
         <div>
           <Link href={`/products/item/${id}`}>
-            <a className="font-sans font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-emerald-500 to-emerald-800 text-neutral-800">
+            <a className="font-sans text-lg font-bold text-center hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br from-emerald-500 to-emerald-800 text-neutral-800">
               {title}
             </a>
           </Link>
@@ -96,7 +96,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
           site_name: "Queen Story Shop",
         }}
       />
-      <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-white rounded-lg shadow-lg md:p-5 lg:p-6">
+      <div className="flex flex-col items-center justify-between flex-grow w-full h-full p-4 my-4 bg-white border-t-8 rounded-lg shadow-lg border-emerald-600 md:p-5 lg:p-6">
         <div className="flex flex-col items-center">
           <div className="block w-full px-2 py-4 mb-6 bg-white rounded-lg ">
             <Image

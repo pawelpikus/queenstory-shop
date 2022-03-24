@@ -28,7 +28,7 @@ const ProductIdPage = ({
   }
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="w-11/12 max-w-xl mx-auto">
       <button
         className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
         type="button"

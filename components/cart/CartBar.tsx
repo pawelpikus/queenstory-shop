@@ -17,7 +17,15 @@ const CartBar = () => {
           </svg>
         </a>
       </Link>
-      <div>{items.length > 0 && items.length}</div>
+      <div
+        className={
+          items.length > 0
+            ? "text-emerald-50 px-1.5 text-sm rounded-full bg-emerald-500"
+            : "hidden"
+        }
+      >
+        {items.length > 0 && items.length}
+      </div>
     </div>
   );
 };
