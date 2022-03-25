@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { ProductListItem } from "../components/Product";
+import { ProductListItem } from "../components/ProductListItem";
 import { ProductSkeleton } from "../components/ProductSkeleton";
 import PaginationCSR from "../components/PaginationCSR";
 import { FAKE_PRODUCT_COUNT, OFFSET, ITEMS_PER_PAGE } from "../utils/consts";

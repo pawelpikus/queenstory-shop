@@ -3,7 +3,7 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import { ProductDetails } from "../../../components/Product";
+import { ProductDetails } from "../../../components/ProductDetails";
 import { ProductSkeleton } from "../../../components/ProductSkeleton";
 import { serialize } from "next-mdx-remote/serialize";
 
@@ -28,9 +28,9 @@ const ProductIdPage = ({
   }
 
   return (
-    <div className="w-11/12 max-w-xl mx-auto">
+    <div className="w-full max-w-6xl mx-auto sm:w-11/12">
       <button
-        className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
+        className="p-4 font-extrabold bg-transparent tSext-2xl w-fit hover:text-emerald-600 rounded-4xl"
         type="button"
         onClick={handleGoBack}
       >

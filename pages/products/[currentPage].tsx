@@ -2,7 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import PaginationSSG from "../../components/PaginationSSG";
-import { ProductListItem } from "../../components/Product";
+import { ProductListItem } from "../../components/ProductListItem";
 import { ProductSkeleton } from "../../components/ProductSkeleton";
 import SecondaryBg from "../../components/SecondaryBg";
 import {

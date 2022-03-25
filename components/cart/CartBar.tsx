@@ -4,12 +4,12 @@ import { useCartState } from "./cartContext";
 const CartBar = () => {
   const { items } = useCartState();
   return (
-    <div className="flex items-center mr-4 transition-colors text-neutral-200 hover:text-white">
+    <div className="flex items-center transition-colors text-neutral-200 hover:text-white">
       <Link href="/cart">
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-8 h-8 "
+            className="w-6 h-6"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -20,7 +20,7 @@ const CartBar = () => {
       <div
         className={
           items.length > 0
-            ? "text-emerald-50 px-1.5 text-sm rounded-full bg-emerald-500"
+            ? "text-emerald-50 px-1.5 tracking-tight text-xs rounded-full bg-emerald-500"
             : "hidden"
         }
       >
