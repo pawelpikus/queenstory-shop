@@ -43,7 +43,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
           site_name: "Queen Story Shop",
         }}
       />
-      <div className="flex flex-col items-start justify-between flex-grow w-full h-full p-4 my-4 bg-white rounded-lg md:p-5 lg:p-6">
+      <div className="flex flex-col items-start justify-between w-full h-full p-4 my-4 bg-white rounded-lg md:p-5 lg:p-6">
         <div className="flex flex-col justify-center w-full md:flex-row md:items-center md:justify-between ">
           <div className="block my-12 bg-white md:w-1/2">
             <Image
@@ -77,9 +77,11 @@ export const ProductDetails = ({ data }: ProductProps) => {
             </PrimaryButton>
           </article>
         </div>
-        <article className="w-full p-4 my-12 prose border-t border-neutral-200 prose-neutral">
-          <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
-        </article>
+        <div className="w-full">
+          <article className="p-4 my-12 prose border-t md:p-12 max-w-max border-neutral-200 prose-neutral">
+            <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
+          </article>
+        </div>
       </div>
     </>
   );
