@@ -15,7 +15,7 @@ const CartContent = () => {
           <ul className="divide-y divide-neutral-200">
             {items.map((item, i) => (
               <li className="py-2" key={`${item.title}_${i}`}>
-                {item.title} - {formatter.format(item.price)}
+                {item.count} x {item.title} - {formatter.format(item.price)}
               </li>
             ))}
           </ul>

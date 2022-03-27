@@ -70,7 +70,11 @@ export const ProductDetails = ({ data }: ProductProps) => {
               </p>
             </div>
             <p>{data.desc}</p>
-            <PrimaryButton item={data}>Dodaj do koszyka</PrimaryButton>
+            <PrimaryButton
+              item={{ title: data.title, price: data.price, count: 1 }}
+            >
+              Dodaj do koszyka
+            </PrimaryButton>
           </article>
         </div>
         <article className="w-full p-4 my-12 prose border-t border-neutral-200 prose-neutral">
