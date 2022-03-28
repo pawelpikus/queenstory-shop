@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 export interface CartItem {
+  readonly id: number;
   title: string;
   price: number;
   count: number;
@@ -9,6 +10,7 @@ export interface CartItem {
 interface CartState {
   items: CartItem[];
   addCartItem: (item: CartItem) => void;
+  removeCartItem: (id: CartItem["id"]) => void;
 }
 
 export const CartContext = createContext<CartState | null>(null);
@@ -21,21 +23,40 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
       value={{
         items: cartItems,
         addCartItem: (item) => {
-          setCartItems((cartItems) => {
-            const existingItem = cartItems.find(
-              (existingItem) => existingItem.title === item.title
+          setCartItems((prevState) => {
+            const existingItem = prevState.find(
+              (existingItem) => existingItem.id === item.id
             );
             if (!existingItem) {
-              return [...cartItems, item];
+              return [...prevState, item];
             }
-            return cartItems.map((existingItem) =>
-              existingItem.title === item.title
+            return prevState.map((existingItem) =>
+              existingItem.id === item.id
                 ? {
                     ...existingItem,
                     count: existingItem.count + 1,
                   }
                 : existingItem
             );
+          });
+        },
+        removeCartItem: (id) => {
+          setCartItems((prevState) => {
+            const existingItem = prevState.find(
+              (existingIem) => existingIem.id === id
+            );
+            if (existingItem && existingItem.count <= 1) {
+              return prevState.filter((existingIem) => existingIem.id !== id);
+            }
+            return prevState.map((existingItem) => {
+              if (existingItem.id === id) {
+                return {
+                  ...existingItem,
+                  count: existingItem.count - 1,
+                };
+              }
+              return existingItem;
+            });
           });
         },
       }}

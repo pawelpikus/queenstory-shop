@@ -44,7 +44,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
         }}
       />
       <div className="flex flex-col items-start justify-between w-full h-full p-4 my-4 bg-white rounded-lg md:p-5 lg:p-6">
-        <div className="flex flex-col justify-center w-full md:flex-row md:items-center md:justify-between ">
+        <div className="flex flex-col justify-center w-full gap-8 md:flex-row md:items-center md:justify-between ">
           <div className="block my-12 bg-white md:w-1/2">
             <Image
               src={data.imgSrc}
@@ -71,7 +71,12 @@ export const ProductDetails = ({ data }: ProductProps) => {
             </div>
             <p>{data.desc}</p>
             <PrimaryButton
-              item={{ title: data.title, price: data.price, count: 1 }}
+              item={{
+                title: data.title,
+                price: data.price,
+                count: 1,
+                id: data.id,
+              }}
             >
               Dodaj do koszyka
             </PrimaryButton>
