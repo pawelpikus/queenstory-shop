@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { getCartItemsFromStorage, setCartItemsInStorage } from "./cartModel";
 
 export interface CartItem {
   readonly id: number;
@@ -18,6 +25,13 @@ export const CartContext = createContext<CartState | null>(null);
 export const CartContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  useEffect(() => {
+    setCartItems(getCartItemsFromStorage);
+  }, []);
+
+  useEffect(() => {
+    setCartItemsInStorage(cartItems);
+  }, [cartItems]);
   return (
     <CartContext.Provider
       value={{
