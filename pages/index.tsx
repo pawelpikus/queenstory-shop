@@ -1,6 +1,3 @@
-import Image from "next/image";
-import logo from "../public/queenstory-logo.jpg";
-
 import Link from "next/link";
 import { routes } from "../routes/routes";
 import SecondaryBg from "../components/SecondaryBg";
