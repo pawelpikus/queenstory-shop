@@ -22,6 +22,9 @@ const HamburgerMenu = () => {
         <NavLinkMobile href={routes.PRODUCTS_CSR} setOpen={setOpen}>
           Produkty (CSR)
         </NavLinkMobile>
+        <NavLinkMobile href={routes.PRODUCTS_GQL} setOpen={setOpen}>
+          Produkty (GraphCMS)
+        </NavLinkMobile>
       </div>
     </nav>
   );

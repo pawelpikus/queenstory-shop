@@ -8,10 +8,10 @@ import PrimaryButton from "./buttons/PrimaryButton";
 
 export interface ProductDetails {
   page?: string;
-  id: number;
+  id: number | string;
   title: string;
   imgSrc: string;
-  desc: string;
+  desc?: string;
   price: number;
   rating: number;
   category: string;
@@ -75,7 +75,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
                 title: data.title,
                 price: data.price,
                 count: 1,
-                id: data.id,
+                id: Number(data.id),
               }}
             >
               Dodaj do koszyka
