@@ -7,7 +7,7 @@ import CartBar from "./cart/CartBar";
 const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="sm:hidden w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase font-narrow">
+    <nav className="md:hidden w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase flex justify-between font-narrow">
       <HamburgerBtn open={open} setOpen={setOpen} />
       <div
         className={`${
@@ -27,6 +27,7 @@ const HamburgerMenu = () => {
           Produkty (GraphCMS)
         </NavLinkMobile>
       </div>
+      <CartBar />
     </nav>
   );
 };

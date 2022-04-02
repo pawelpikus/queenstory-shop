@@ -9,7 +9,7 @@ type NavLinkMobileProps = {
 
 const NavLinkMobile = ({ children, href, setOpen }: NavLinkMobileProps) => {
   return (
-    <Link href={href}>
+    <Link scroll={false} href={href}>
       <a
         onClick={() => setOpen(false)}
         className="text-xl transition-colors text-neutral-200 hover:text-white"

@@ -17,7 +17,7 @@ export const ProductListItemGQL = ({
   price,
 }: ProductListItem) => {
   return (
-    <div className="w-full p-4 my-4 bg-white rounded-lg md:p-5 lg:p-6">
+    <div className="w-full p-4 my-8 bg-white rounded-lg md:p-5 lg:p-6">
       <div className="flex flex-col items-center justify-between w-full h-full ">
         <div className="block w-full px-2 py-4 bg-white rounded-lg ">
           <Image
@@ -44,7 +44,7 @@ export const ProductListItemGQL = ({
             Dodaj do koszyka
           </PrimaryButton>
           <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
-            {formatter.format(price)}
+            {formatter.format(price / 100)}
           </p>
         </div>
       </div>

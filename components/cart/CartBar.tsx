@@ -9,7 +9,7 @@ const CartBar = () => {
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className="w-8 h-8"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

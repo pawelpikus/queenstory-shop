@@ -7,7 +7,6 @@ export const Header = () => {
     <header className="flex items-center justify-between py-4 bg-neutral-800">
       <HamburgerMenu />
       <DesktopMenu />
-      <CartBar />
     </header>
   );
 };

@@ -5,7 +5,7 @@ import NavLink from "./NavLink";
 
 const DesktopMenu = () => {
   return (
-    <nav className="hidden w-11/12 sm:flex mx-auto max-w-6xl text-sm items-center tracking-[5px] text-white uppercase font-narrow justify-between ">
+    <nav className="hidden w-11/12 md:flex mx-auto max-w-6xl text-sm items-center tracking-[5px] text-white uppercase font-narrow justify-between ">
       <NavLink href={routes.HOME}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +19,7 @@ const DesktopMenu = () => {
       <NavLink href={`${routes.PRODUCTS}/1`}>Produkty (SSG)</NavLink>
       <NavLink href={routes.PRODUCTS_CSR}>Produkty (CSR)</NavLink>
       <NavLink href={routes.PRODUCTS_GQL}>Produkty (GraphCMS)</NavLink>
+      <CartBar />
     </nav>
   );
 };

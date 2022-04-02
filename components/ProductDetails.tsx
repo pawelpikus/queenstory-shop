@@ -43,7 +43,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
           site_name: "Queen Story Shop",
         }}
       />
-      <div className="flex flex-col items-start justify-between w-full h-full p-4 my-4 bg-white rounded-lg md:p-5 lg:p-6">
+      <div className="flex flex-col items-start justify-between w-full p-4 my-12 bg-white rounded-lg md:p-5 lg:p-6">
         <div className="flex flex-col justify-center w-full gap-8 md:flex-row md:items-center md:justify-between ">
           <div className="block my-12 bg-white md:w-1/2">
             <Image
@@ -56,8 +56,10 @@ export const ProductDetails = ({ data }: ProductProps) => {
             />
           </div>
           <article className="prose md:w-1/2 prose-neutral">
-            <h1 className="mb-0 text-2xl text-left ">{data.title}</h1>
-            <h3 className="m-0 text-left font-narrow text-neutral-500">
+            <h1 className="mb-0 text-2xl text-center md:text-left ">
+              {data.title}
+            </h1>
+            <h3 className="m-0 text-center md:text-left font-narrow text-neutral-500">
               {data.category}
             </h3>
             <div className="flex items-baseline justify-between w-full">
@@ -66,7 +68,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
               </p>
 
               <p className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">
-                {formatter.format(data.price)}
+                {formatter.format(data.price / 100)}
               </p>
             </div>
             <p>{data.desc}</p>
@@ -82,8 +84,8 @@ export const ProductDetails = ({ data }: ProductProps) => {
             </PrimaryButton>
           </article>
         </div>
-        <div className="w-full">
-          <article className="p-4 my-12 prose border-t md:p-12 max-w-max border-neutral-200 prose-neutral">
+        <div className="w-full mt-8 border-t-2 border-neutral-200">
+          <article className="p-4 my-12 prose prose-neutral">
             <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
           </article>
         </div>
