@@ -2,6 +2,7 @@ import { useState } from "react";
 import HamburgerBtn from "./HamburgerBtn";
 import NavLinkMobile from "./NavLinkMobile";
 import { routes } from "../routes/routes";
+import CartBar from "./cart/CartBar";
 
 const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);

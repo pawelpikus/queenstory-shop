@@ -19,7 +19,6 @@ const DesktopMenu = () => {
       <NavLink href={`${routes.PRODUCTS}/1`}>Produkty (SSG)</NavLink>
       <NavLink href={routes.PRODUCTS_CSR}>Produkty (CSR)</NavLink>
       <NavLink href={routes.PRODUCTS_GQL}>Produkty (GraphCMS)</NavLink>
-      <CartBar />
     </nav>
   );
 };

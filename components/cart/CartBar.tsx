@@ -4,7 +4,7 @@ import { useCartState } from "./cartContext";
 const CartBar = () => {
   const { items } = useCartState();
   return (
-    <div className="flex items-center transition-colors text-neutral-200 hover:text-white">
+    <div className="flex items-center ml-4 transition-colors text-neutral-200 hover:text-white">
       <Link href="/cart">
         <a>
           <svg
