@@ -1,8 +1,8 @@
-import Link from "next/link";
 import React from "react";
 import { formatter } from "../../utils/priceFormatter";
 import { useCartState } from "./cartContext";
 import Image from "next/image";
+import EmptyCartContent from "./EmptyCartContent";
 
 const CartContent = () => {
   const { items, removeCartItem } = useCartState();
@@ -11,17 +11,17 @@ const CartContent = () => {
       <h1 className="mb-8 text-2xl text-center">Koszyk</h1>
       <div className="flex flex-col w-full h-full p-8 border border-neutral-200 ">
         {items.length < 1 ? (
-          <p>Nie masz obecnie produktów w koszyku.</p>
+          <EmptyCartContent text="Nie masz obecnie produktów w koszyku." />
         ) : (
-          <table className="table-fixed ">
+          <table className="table-fixed">
             <thead className="text-left bg-neutral-100">
               <tr>
-                <th className="p-4">Delete</th>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
+                <th></th>
+                <th className="p-4 text-center ">Zdjęcie</th>
+                <th className="pr-4">Produkt</th>
+                <th className="pr-4">Cena</th>
+                <th className="pr-4">Ilość</th>
+                <th>Podsuma</th>
               </tr>
             </thead>
             <tbody>
@@ -51,8 +51,8 @@ const CartContent = () => {
                       </svg>
                     </div>
                   </td>
-                  <td>
-                    <div className="block my-4 bg-white">
+                  <td className="">
+                    <div className="block m-4 bg-white">
                       <Image
                         src={item.thumbnail}
                         layout="responsive"
@@ -72,13 +72,6 @@ const CartContent = () => {
             </tbody>
           </table>
         )}
-      </div>
-      <div className="my-6">
-        <Link href="/products/1">
-          <a className="px-2 py-1 font-semibold transition-all bg-transparent border rounded hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent">
-            Wróć do sklepu
-          </a>
-        </Link>
       </div>
     </div>
   );
