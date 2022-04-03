@@ -11,6 +11,7 @@ export interface CartItem {
   readonly id: number | string;
   title: string;
   price: number;
+  thumbnail: string;
   count: number;
 }
 

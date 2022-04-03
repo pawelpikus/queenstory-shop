@@ -40,7 +40,9 @@ export const ProductListItemGQL = ({
           </h4>
         </div>
         <div className="flex items-baseline justify-between w-full mt-4">
-          <PrimaryButton item={{ title, price, count: 1, id }}>
+          <PrimaryButton
+            item={{ title, thumbnail: imgSrc, price, count: 1, id }}
+          >
             Dodaj do koszyka
           </PrimaryButton>
           <p className="font-sans font-bold text-right text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-emerald-800">

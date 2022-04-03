@@ -76,15 +76,16 @@ export const ProductDetails = ({ data }: ProductProps) => {
               item={{
                 title: data.title,
                 price: data.price,
+                thumbnail: data.imgSrc,
                 count: 1,
-                id: Number(data.id),
+                id: data.id,
               }}
             >
               Dodaj do koszyka
             </PrimaryButton>
           </article>
         </div>
-        <div className="w-full mt-8 border-t-2 border-neutral-200">
+        <div className="w-full mt-8 border-t-4 border-neutral-50">
           <article className="p-4 my-12 prose prose-neutral">
             <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
           </article>

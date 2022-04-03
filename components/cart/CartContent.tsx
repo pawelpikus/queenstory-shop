@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { formatter } from "../../utils/priceFormatter";
 import { useCartState } from "./cartContext";
+import Image from "next/image";
 
 const CartContent = () => {
   const { items, removeCartItem } = useCartState();
@@ -12,33 +13,64 @@ const CartContent = () => {
         {items.length < 1 ? (
           <p>Nie masz obecnie produktów w koszyku.</p>
         ) : (
-          <ul className="divide-y divide-neutral-200">
-            {items.map((item, i) => (
-              <li className="flex gap-2 py-2" key={`${item.title}_${i}`}>
-                {item.count} x {item.title} -{" "}
-                {formatter.format(item.price / 100)}
-                <div
-                  className="text-red-500"
-                  onClick={() => removeCartItem(item.id)}
+          <table className="table-fixed ">
+            <thead className="text-left bg-neutral-100">
+              <tr>
+                <th className="p-4">Delete</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr
+                  key={item.id}
+                  className="border-b-4 last-of-type:border-none border-neutral-50"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 cursor-pointer"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  <td className="pl-4">
+                    <div
+                      className="rounded-full w-fit text-neutral-800 hover:bg-neutral-800 hover:text-white"
+                      onClick={() => removeCartItem(item.id)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="block my-4 bg-white">
+                      <Image
+                        src={item.thumbnail}
+                        layout="responsive"
+                        width={16}
+                        height={9}
+                        objectFit="contain"
+                        alt={item.title}
+                      />
+                    </div>
+                  </td>
+                  <td>{item.title}</td>
+                  <td>{formatter.format(item.price / 100)}</td>
+                  <td>{item.count}</td>
+                  <td>{formatter.format((item.price * item.count) / 100)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
       <div className="my-6">
