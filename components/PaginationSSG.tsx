@@ -40,6 +40,7 @@ const PaginationSSG = ({
         ) : (
           <>
             <Link
+              scroll={false}
               href={
                 currentPageNum > 1
                   ? `${routes.PRODUCTS}/${currentPageNum - 1}`
@@ -54,11 +55,11 @@ const PaginationSSG = ({
                     : null
                 }   font-semibold p-3 transition-colors hover:text-emerald-600`}
               >
-                Previous Page
+                Poprzednia
               </a>
             </Link>
-            <div className="flex items-baseline">
-              <Link href={`${routes.PRODUCTS}/1`}>
+            <div className="items-baseline hidden sm:flex">
+              <Link scroll={false} href={`${routes.PRODUCTS}/1`}>
                 <a
                   onClick={handlePrevClick}
                   className={`${
@@ -78,7 +79,11 @@ const PaginationSSG = ({
                   page >= minPageLimit - LEFT_RIGHT
                 ) {
                   return (
-                    <Link key={page} href={`${routes.PRODUCTS}/${page + 1}`}>
+                    <Link
+                      scroll={false}
+                      key={page}
+                      href={`${routes.PRODUCTS}/${page + 1}`}
+                    >
                       <a
                         className={`${
                           currentPageNum === page + 1
@@ -98,7 +103,7 @@ const PaginationSSG = ({
                 <div>&hellip;</div>
               ) : null}
 
-              <Link href={`${routes.PRODUCTS}/${totalPages}`}>
+              <Link scroll={false} href={`${routes.PRODUCTS}/${totalPages}`}>
                 <a
                   className={`${
                     activePage === totalPages
@@ -112,6 +117,7 @@ const PaginationSSG = ({
             </div>
 
             <Link
+              scroll={false}
               href={
                 totalPages && currentPageNum < totalPages
                   ? `/products/${currentPageNum + 1}`
@@ -126,7 +132,7 @@ const PaginationSSG = ({
                     : null
                 } p-3 font-semibold transition-colors hover:text-emerald-600`}
               >
-                Next Page
+                Następna
               </a>
             </Link>
           </>

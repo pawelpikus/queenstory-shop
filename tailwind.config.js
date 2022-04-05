@@ -7,6 +7,7 @@ module.exports = {
       fontFamily: {
         sans: ['"PT Sans"', ...defaultTheme.fontFamily.sans],
         narrow: ['"PT Sans Narrow"', ...defaultTheme.fontFamily.sans],
+        extralight: ['"PT Sans Narrow"', ...defaultTheme.fontFamily.sans],
       },
     },
   },

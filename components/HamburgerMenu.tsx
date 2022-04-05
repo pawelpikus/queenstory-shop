@@ -2,27 +2,32 @@ import { useState } from "react";
 import HamburgerBtn from "./HamburgerBtn";
 import NavLinkMobile from "./NavLinkMobile";
 import { routes } from "../routes/routes";
+import CartBar from "./cart/CartBar";
 
 const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="sm:hidden w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase font-narrow">
+    <nav className="md:hidden w-11/12 mx-auto text-sm tracking-[5px] text-white uppercase flex justify-between font-narrow">
       <HamburgerBtn open={open} setOpen={setOpen} />
       <div
         className={`${
           open ? `translate-x-0` : `-translate-x-full`
-        } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-36 py-24 px-6 top-28 bg-neutral-800 text-white`}
+        } absolute transition-transform left-0 z-10 flex flex-col items-start justify-start w-full gap-24 h-screen py-24 px-6 top-22 bg-neutral-800 text-white`}
       >
         <NavLinkMobile href={routes.HOME} setOpen={setOpen}>
-          Home
+          Główna
         </NavLinkMobile>
         <NavLinkMobile href={`${routes.PRODUCTS}/1`} setOpen={setOpen}>
-          Products (SSG)
+          Produkty (SSG)
         </NavLinkMobile>
         <NavLinkMobile href={routes.PRODUCTS_CSR} setOpen={setOpen}>
-          Products (CSR)
+          Produkty (CSR)
+        </NavLinkMobile>
+        <NavLinkMobile href={routes.PRODUCTS_GQL} setOpen={setOpen}>
+          Produkty (GraphCMS)
         </NavLinkMobile>
       </div>
+      <CartBar />
     </nav>
   );
 };

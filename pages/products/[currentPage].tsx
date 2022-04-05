@@ -2,8 +2,9 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import PaginationSSG from "../../components/PaginationSSG";
-import { ProductListItem } from "../../components/Product";
+import { ProductListItem } from "../../components/ProductListItem";
 import { ProductSkeleton } from "../../components/ProductSkeleton";
+import SecondaryBg from "../../components/SecondaryBg";
 import {
   ITEMS_PER_PAGE,
   PAGES_COUNT,
@@ -43,40 +44,51 @@ const ProductsPage = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto ">
-      <PaginationSSG
-        minPageLimit={minPageLimit}
-        maxPageLimit={maxPageLimit}
-        totalPages={totalPages}
-        activePage={currentPageNum}
-        onPrevClick={onPrevClick}
-        onNextClick={onNextClick}
-      />
-      {router.isFallback ? (
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
-            <li key={i}>
-              <ProductSkeleton />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data &&
-            data.map((item) => (
-              <li key={item.id}>
-                <ProductListItem
-                  id={item.id}
-                  title={item.title}
-                  imgSrc={item.image}
-                  category={item.category}
-                  price={item.price}
-                />
+    <>
+      <SecondaryBg />
+      <div className="w-11/12 mx-auto max-w-7xl ">
+        <PaginationSSG
+          minPageLimit={minPageLimit}
+          maxPageLimit={maxPageLimit}
+          totalPages={totalPages}
+          activePage={currentPageNum}
+          onPrevClick={onPrevClick}
+          onNextClick={onNextClick}
+        />
+        {router.isFallback ? (
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+              <li key={i}>
+                <ProductSkeleton />
               </li>
             ))}
-        </ul>
-      )}
-    </div>
+          </ul>
+        ) : (
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+            {data &&
+              data.map((item) => (
+                <li key={item.id}>
+                  <ProductListItem
+                    id={item.id}
+                    title={item.title}
+                    imgSrc={item.image}
+                    category={item.category}
+                    price={item.price}
+                  />
+                </li>
+              ))}
+          </ul>
+        )}
+        <PaginationSSG
+          minPageLimit={minPageLimit}
+          maxPageLimit={maxPageLimit}
+          totalPages={totalPages}
+          activePage={currentPageNum}
+          onPrevClick={onPrevClick}
+          onNextClick={onNextClick}
+        />
+      </div>
+    </>
   );
 };
 
