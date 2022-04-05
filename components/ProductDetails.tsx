@@ -4,7 +4,7 @@ import { formatter } from "../utils/priceFormatter";
 import { NextSeo } from "next-seo";
 import MyReactMarkDown from "./MyReactMarkDown";
 import { MarkDownResult } from "../utils/types";
-import PrimaryButton from "./buttons/PrimaryButton";
+import SecondaryButton from "./buttons/SecondaryButton";
 
 export interface ProductDetails {
   page?: string;
@@ -43,7 +43,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
           site_name: "Queen Story Shop",
         }}
       />
-      <div className="flex flex-col items-start justify-between w-full p-4 my-12 bg-white rounded-lg md:p-5 lg:p-6">
+      <div className="flex flex-col items-start justify-between w-full p-4 my-12 bg-white md:p-5 lg:p-6">
         <div className="flex flex-col justify-center w-full gap-8 md:flex-row md:items-center md:justify-between ">
           <div className="block my-12 bg-white md:w-1/2">
             <Image
@@ -72,7 +72,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
               </p>
             </div>
             <p>{data.desc}</p>
-            <PrimaryButton
+            <SecondaryButton
               item={{
                 title: data.title,
                 price: data.price,
@@ -82,7 +82,7 @@ export const ProductDetails = ({ data }: ProductProps) => {
               }}
             >
               Dodaj do koszyka
-            </PrimaryButton>
+            </SecondaryButton>
           </article>
         </div>
         <div className="w-full mt-8 border-t-4 border-neutral-50">

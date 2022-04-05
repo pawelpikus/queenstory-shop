@@ -1,4 +1,4 @@
-import PrimaryButton from "../components/buttons/PrimaryButton";
+import SecondaryButton from "../components/buttons/SecondaryButton";
 import CartContent from "../components/cart/CartContent";
 import { useCartState } from "../components/cart/cartContext";
 

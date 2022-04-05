@@ -1,18 +1,12 @@
-import { ReactNode } from "react";
-import { useCartState } from "../cart/cartContext";
-import { CartItem } from "../cart/cartContext";
+import React, { ReactNode } from "react";
 
-interface PrimaryButtonProps {
-  children: ReactNode;
-  item?: CartItem;
-}
-
-const PrimaryButton = ({ children, item }: PrimaryButtonProps) => {
-  const cartState = useCartState();
+const PrimaryButton = ({ children }: { children: ReactNode }) => {
   return (
     <button
-      onClick={() => item && cartState.addCartItem(item)}
-      className="px-2 py-1 font-semibold transition-all bg-transparent border rounded hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
+      onClick={() => {
+        console.log("Clicked!");
+      }}
+      className="w-full py-4 font-sans text-xl text-white transition-all border-none bg-neutral-800 hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
     >
       {children}
     </button>
