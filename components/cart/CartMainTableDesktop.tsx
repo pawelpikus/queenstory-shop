@@ -7,7 +7,7 @@ import SecondaryButton from "../buttons/SecondaryButton";
 const CartMainTable = () => {
   const { items, removeCartItem } = useCartState();
   return (
-    <>
+    <div className="hidden w-full md:flex md:flex-col ">
       <table className="table-fixed ">
         <thead className="text-sm tracking-wider text-left uppercase font-narrow bg-neutral-100">
           <tr>
@@ -71,7 +71,7 @@ const CartMainTable = () => {
       <div className="flex items-center justify-end w-full gap-4 mt-12 ">
         <SecondaryButton>Zaktualizuj koszyk</SecondaryButton>
       </div>
-    </>
+    </div>
   );
 };
 
