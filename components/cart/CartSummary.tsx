@@ -1,8 +1,9 @@
 import React from "react";
+import { routes } from "../../routes/routes";
 import { formatter } from "../../utils/priceFormatter";
-import PrimaryButton from "../buttons/PrimaryButton";
+import PrimaryLink from "../links/PrimaryLink";
 
-const CartSubtotal = () => {
+const CartSummary = () => {
   return (
     <div className="flex justify-end">
       <div className="flex flex-col items-start">
@@ -27,10 +28,10 @@ const CartSubtotal = () => {
             </tbody>
           </table>
         </div>
-        <PrimaryButton>Przejdź do kasy</PrimaryButton>
+        <PrimaryLink href={routes.CHECKOUT}>Przejdź do kasy</PrimaryLink>
       </div>
     </div>
   );
 };
 
-export default CartSubtotal;
+export default CartSummary;

@@ -1,7 +1,7 @@
 import { useCartState } from "./cartContext";
 import EmptyCartContent from "./EmptyCartContent";
 import CartMainTableDesktop from "./CartMainTableDesktop";
-import CartSubtotal from "./CartSubtotal";
+import CartSummary from "./CartSummary";
 import CartMainTableMobile from "./CartMainTableMobile";
 
 const CartContent = () => {
@@ -21,7 +21,7 @@ const CartContent = () => {
         )}
       </div>
 
-      {items.length > 0 ? <CartSubtotal /> : null}
+      {items.length > 0 ? <CartSummary /> : null}
     </div>
   );
 };
