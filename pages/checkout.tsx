@@ -1,8 +1,9 @@
+import { SubmitHandler, useForm } from "react-hook-form";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import Input from "../components/forms/Input";
 import TextArea from "../components/forms/TextArea";
 
-interface formData {
+export interface FormData {
   firstName: string;
   lastName: string;
   email: string;
@@ -13,25 +14,51 @@ interface formData {
 }
 
 const CheckoutPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>();
+  const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
   return (
     <div className="grid w-11/12 grid-cols-1 mx-auto my-8 lg:grid-cols-2">
-      <form className="justify-center w-full mx-auto">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="justify-center w-full mx-auto"
+      >
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
-            <Input labelText="Imię" labelFor="firstName" type="text" />
+            <Input
+              register={register}
+              labelText="Imię"
+              labelFor="firstName"
+              type="text"
+            />
           </div>
           <div className="w-full lg:w-1/2">
-            <Input labelText="Nazwisko" labelFor="lastName" type="text" />
+            <Input
+              register={register}
+              labelText="Nazwisko"
+              labelFor="lastName"
+              type="text"
+            />
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full">
-            <Input labelText="Adres email" labelFor="email" type="email" />
+            <Input
+              register={register}
+              labelText="Adres email"
+              labelFor="email"
+              type="email"
+            />
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full">
             <TextArea
+              register={register}
               labelText={"Adres"}
               labelFor={"address"}
               placeholder={"Ulica, numer domu, numer mieszkania"}
@@ -40,10 +67,16 @@ const CheckoutPage = () => {
         </div>
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
-            <Input labelText={"Miasto"} labelFor={"city"} type={"text"} />
+            <Input
+              register={register}
+              labelText={"Miasto"}
+              labelFor={"city"}
+              type={"text"}
+            />
           </div>
           <div className="w-full lg:w-1/2 ">
             <Input
+              register={register}
               labelText={"Kod pocztowy"}
               labelFor={"postCode"}
               type={"text"}
@@ -61,6 +94,7 @@ const CheckoutPage = () => {
         </div>
         <div className="relative pt-3 xl:pt-6">
           <TextArea
+            register={register}
             labelText={"Wiadomość (opcjonalnie)"}
             labelFor={"notes"}
             placeholder={"Wiadomość do sprzedawcy"}
