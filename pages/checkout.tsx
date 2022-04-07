@@ -2,6 +2,16 @@ import PrimaryButton from "../components/buttons/PrimaryButton";
 import Input from "../components/forms/Input";
 import TextArea from "../components/forms/TextArea";
 
+interface formData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  city: string;
+  postCode: string;
+  notes: string;
+}
+
 const CheckoutPage = () => {
   return (
     <div className="grid w-11/12 grid-cols-1 mx-auto my-8 lg:grid-cols-2">
