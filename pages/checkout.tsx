@@ -3,25 +3,46 @@ import PrimaryButton from "../components/buttons/PrimaryButton";
 import FormErrorMsg from "../components/forms/FormErrorMsg";
 import Input from "../components/forms/Input";
 import TextArea from "../components/forms/TextArea";
-import { hasWhitespaces } from "../utils/hasWhitespaces";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { setLocale } from "yup";
 
-export interface CheckoutFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  city: string;
-  postCode: string;
-  notes: string;
-}
+setLocale({
+  mixed: {
+    required: "To pole jest wymagane",
+  },
+  string: {
+    email: "Podaj poprawny adres email",
+  },
+});
+
+const checkoutFormSchema = yup
+  .object({
+    firstName: yup.string().trim().required(),
+    lastName: yup.string().trim().required(),
+    email: yup.string().trim().email().required(),
+    address: yup.string().trim().required(),
+    city: yup.string().trim().required(),
+    postCode: yup.string().trim().required(),
+    notes: yup.string(),
+  })
+  .required();
+
+export type CheckoutFormData = yup.InferType<typeof checkoutFormSchema>;
 
 const CheckoutPage = () => {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<CheckoutFormData>();
-  const onSubmit: SubmitHandler<CheckoutFormData> = (data) => console.log(data);
+  } = useForm<CheckoutFormData>({
+    resolver: yupResolver(checkoutFormSchema),
+  });
+  const onSubmit: SubmitHandler<CheckoutFormData> = (data) => {
+    console.log(data);
+    reset();
+  };
 
   return (
     <div className="grid w-11/12 grid-cols-1 mx-auto my-8 lg:grid-cols-2">
@@ -33,90 +54,76 @@ const CheckoutPage = () => {
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("firstName", {
-                required: true,
-                validate: hasWhitespaces,
-              })}
+              {...register("firstName")}
               labelText="Imię"
               labelFor="firstName"
               type="text"
             />
-            {errors.firstName && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.firstName && errors.firstName.message && (
+              <FormErrorMsg text={errors.firstName.message} />
+            )}
           </div>
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("lastName", {
-                required: true,
-                validate: hasWhitespaces,
-              })}
+              {...register("lastName")}
               labelText="Nazwisko"
               labelFor="lastName"
               type="text"
             />
-            {errors.lastName && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.lastName && errors.lastName.message && (
+              <FormErrorMsg text={errors.lastName.message} />
+            )}
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full">
             <Input
-              {...register("email", {
-                required: true,
-                validate: hasWhitespaces,
-                pattern: {
-                  value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                  message: "Niepoprawny adres email!",
-                },
-              })}
+              {...register("email")}
               labelText="Adres email"
               labelFor="email"
               type="email"
             />
-            {errors.email && errors.email.type === "required" && (
-              <FormErrorMsg text={"To pole jest wymagane"} />
-            )}
-            {errors.email && errors.email.type === "pattern" && (
-              <FormErrorMsg text={errors.email.message || ""} />
+
+            {errors.email && errors.email.message && (
+              <FormErrorMsg text={errors.email.message} />
             )}
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full">
             <TextArea
-              {...register("address", {
-                required: true,
-                validate: hasWhitespaces,
-              })}
+              {...register("address")}
               labelText={"Adres"}
               labelFor={"address"}
               placeholder={"Ulica, numer domu, numer mieszkania"}
             />
-            {errors.address && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.address && errors.address.message && (
+              <FormErrorMsg text={errors.address.message} />
+            )}
           </div>
         </div>
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("city", {
-                required: true,
-                validate: hasWhitespaces,
-              })}
+              {...register("city")}
               labelText={"Miasto"}
               labelFor={"city"}
               type={"text"}
             />
-            {errors.city && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.city && errors.city.message && (
+              <FormErrorMsg text={errors.city.message} />
+            )}
           </div>
           <div className="w-full lg:w-1/2 ">
             <Input
-              {...register("postCode", {
-                required: true,
-                validate: hasWhitespaces,
-              })}
+              {...register("postCode")}
               labelText={"Kod pocztowy"}
               labelFor={"postCode"}
               type={"text"}
             />
-            {errors.postCode && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.postCode && errors.postCode.message && (
+              <FormErrorMsg text={errors.postCode.message} />
+            )}
           </div>
         </div>
         <div className="flex items-center mt-4">
@@ -137,7 +144,7 @@ const CheckoutPage = () => {
           />
         </div>
         <div className="mt-4">
-          <PrimaryButton>Płacę</PrimaryButton>
+          <PrimaryButton>Kontynuuj</PrimaryButton>
         </div>
       </form>
     </div>
