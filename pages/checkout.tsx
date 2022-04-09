@@ -1,9 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import FormErrorMsg from "../components/forms/FormErrorMsg";
-
 import Input from "../components/forms/Input";
 import TextArea from "../components/forms/TextArea";
+import { hasWhitespaces } from "../utils/hasWhitespaces";
 
 export interface CheckoutFormData {
   firstName: string;
@@ -23,12 +23,6 @@ const CheckoutPage = () => {
   } = useForm<CheckoutFormData>();
   const onSubmit: SubmitHandler<CheckoutFormData> = (data) => console.log(data);
 
-  const hasWhitespaces = (value: string) => {
-    if (!value.replace(/\s/g, "").length) {
-      return false;
-    }
-    return true;
-  };
   return (
     <div className="grid w-11/12 grid-cols-1 mx-auto my-8 lg:grid-cols-2">
       <form
