@@ -22,16 +22,27 @@ const CheckoutPage = () => {
     formState: { errors },
   } = useForm<CheckoutFormData>();
   const onSubmit: SubmitHandler<CheckoutFormData> = (data) => console.log(data);
+
+  const hasWhitespaces = (value: string) => {
+    if (!value.replace(/\s/g, "").length) {
+      return false;
+    }
+    return true;
+  };
   return (
     <div className="grid w-11/12 grid-cols-1 mx-auto my-8 lg:grid-cols-2">
       <form
+        noValidate
         onSubmit={handleSubmit(onSubmit)}
         className="justify-center w-full mx-auto"
       >
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("firstName", { required: true })}
+              {...register("firstName", {
+                required: true,
+                validate: hasWhitespaces,
+              })}
               labelText="Imię"
               labelFor="firstName"
               type="text"
@@ -40,7 +51,10 @@ const CheckoutPage = () => {
           </div>
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("lastName", { required: true })}
+              {...register("lastName", {
+                required: true,
+                validate: hasWhitespaces,
+              })}
               labelText="Nazwisko"
               labelFor="lastName"
               type="text"
@@ -51,18 +65,33 @@ const CheckoutPage = () => {
         <div className="mt-4">
           <div className="w-full">
             <Input
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                validate: hasWhitespaces,
+                pattern: {
+                  value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                  message: "Niepoprawny adres email!",
+                },
+              })}
               labelText="Adres email"
               labelFor="email"
               type="email"
             />
-            {errors.email && <FormErrorMsg text="To pole jest wymagane" />}
+            {errors.email && errors.email.type === "required" && (
+              <FormErrorMsg text={"To pole jest wymagane"} />
+            )}
+            {errors.email && errors.email.type === "pattern" && (
+              <FormErrorMsg text={errors.email.message || ""} />
+            )}
           </div>
         </div>
         <div className="mt-4">
           <div className="w-full">
             <TextArea
-              {...register("address", { required: true })}
+              {...register("address", {
+                required: true,
+                validate: hasWhitespaces,
+              })}
               labelText={"Adres"}
               labelFor={"address"}
               placeholder={"Ulica, numer domu, numer mieszkania"}
@@ -73,7 +102,10 @@ const CheckoutPage = () => {
         <div className="space-x-0 lg:flex lg:space-x-4">
           <div className="w-full lg:w-1/2">
             <Input
-              {...register("city", { required: true })}
+              {...register("city", {
+                required: true,
+                validate: hasWhitespaces,
+              })}
               labelText={"Miasto"}
               labelFor={"city"}
               type={"text"}
@@ -82,7 +114,10 @@ const CheckoutPage = () => {
           </div>
           <div className="w-full lg:w-1/2 ">
             <Input
-              {...register("postCode", { required: true })}
+              {...register("postCode", {
+                required: true,
+                validate: hasWhitespaces,
+              })}
               labelText={"Kod pocztowy"}
               labelFor={"postCode"}
               type={"text"}

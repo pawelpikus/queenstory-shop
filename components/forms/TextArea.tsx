@@ -1,5 +1,5 @@
 import React from "react";
-import { FormState, Path, UseFormRegister } from "react-hook-form";
+import { Path } from "react-hook-form";
 import { CheckoutFormData } from "../../pages/checkout";
 
 interface TextAreaProps {
