@@ -50,7 +50,7 @@ const CheckoutPage = () => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="grid justify-center w-full grid-cols-1 gap-8 mx-auto lg:grid-cols-2"
+        className="grid justify-center w-full grid-cols-1 gap-8 mx-auto md:grid-cols-2"
       >
         <div className="col-start-1 ">
           <h2 className="mb-8 text-lg font-bold">Dane Zamawiającego</h2>
@@ -147,7 +147,7 @@ const CheckoutPage = () => {
             />
           </div>
         </div>
-        <div className="col-start-2 ">
+        <div className="col-start-1 md:col-start-2">
           <h2 className="mb-8 text-lg font-bold">Twoje zamówienie</h2>
           <CheckoutOrderSummary />
           <div className="mt-4">
