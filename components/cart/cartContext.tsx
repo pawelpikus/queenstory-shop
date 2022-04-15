@@ -93,7 +93,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 export const useCartState = () => {
   const cartState = useContext(CartContext);
   if (!cartState) {
-    throw new Error("There's no context provider.");
+    throw new Error("Wrap your component in context provider.");
   }
 
   return cartState;
