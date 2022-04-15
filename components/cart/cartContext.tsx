@@ -19,6 +19,7 @@ interface CartState {
   items: CartItem[];
   addCartItem: (item: CartItem) => void;
   removeCartItem: (id: CartItem["id"]) => void;
+  calculateSubtotal: () => number;
 }
 
 export const CartContext = createContext<CartState | null>(null);
@@ -73,6 +74,14 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
               return existingItem;
             });
           });
+        },
+        calculateSubtotal: () => {
+          let subtotal = 0;
+          const itemsInCart = cartItems;
+          itemsInCart.map((item) => {
+            subtotal += item.price * item.count;
+          });
+          return subtotal;
         },
       }}
     >

@@ -28,7 +28,9 @@ const CartMainTable = () => {
               <td className="pl-4">
                 <div
                   className="transition-colors rounded-full w-fit text-neutral-800 hover:bg-neutral-800 hover:text-white"
-                  onClick={() => removeCartItem(item.id)}
+                  onClick={() => {
+                    removeCartItem(item.id);
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

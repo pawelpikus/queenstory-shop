@@ -3,7 +3,7 @@ import { useCartState } from "../cart/cartContext";
 import { formatter } from "../../utils/priceFormatter";
 
 const CheckoutOrderSummary = () => {
-  const { items } = useCartState();
+  const { items, calculateSubtotal } = useCartState();
   return (
     <div className="w-full">
       <table className="w-full table-fixed">
@@ -26,11 +26,15 @@ const CheckoutOrderSummary = () => {
           ))}
           <tr className="border-t-4 border-neutral-100">
             <td className="p-4 tracking-wider uppercase ">Podsuma</td>
-            <td className="p-4 text-right">{formatter.format(75.33)}</td>
+            <td className="p-4 text-right">
+              {formatter.format(calculateSubtotal() / 100)}
+            </td>
           </tr>
           <tr className="font-bold border-t-4 border-neutral-100 bg-neutral-100">
             <td className="p-4 tracking-wider uppercase ">Suma</td>
-            <td className="p-4 text-right">{formatter.format(75.33)}</td>
+            <td className="p-4 text-right">
+              {formatter.format(calculateSubtotal() / 100)}
+            </td>
           </tr>
         </tbody>
       </table>
