@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { routes } from "../../routes/routes";
 import { formatter } from "../../utils/priceFormatter";
-import PrimaryButton from "../buttons/PrimaryButton";
+import PrimaryLink from "../links/PrimaryLink";
+import { useCartState } from "./cartContext";
 
-const CartSubtotal = () => {
+const CartSummary = () => {
+  const { calculateSubtotal } = useCartState();
+
   return (
     <div className="flex justify-end">
       <div className="flex flex-col items-start">
@@ -14,23 +18,25 @@ const CartSubtotal = () => {
                 <td className="p-4 text-sm tracking-widest uppercase">
                   Podsuma
                 </td>
-                <td className="self-center ">{formatter.format(7899 / 100)}</td>
+                <td className="self-center ">
+                  {formatter.format(calculateSubtotal() / 100)}
+                </td>
               </tr>
               <tr className="grid grid-cols-2 gap-40">
                 <td className="p-4 text-sm font-bold tracking-widest uppercase">
                   Suma
                 </td>
                 <td className="self-center font-bold">
-                  {formatter.format(7899 / 100)}
+                  {formatter.format(calculateSubtotal() / 100)}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <PrimaryButton>Przejdź do kasy</PrimaryButton>
+        <PrimaryLink href={routes.CHECKOUT}>Przejdź do kasy</PrimaryLink>
       </div>
     </div>
   );
 };
 
-export default CartSubtotal;
+export default CartSummary;

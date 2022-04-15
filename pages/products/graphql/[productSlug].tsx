@@ -37,11 +37,11 @@ const ProductPage = ({
   return (
     <div className="w-full max-w-6xl mx-auto sm:w-11/12">
       <button
-        className="p-4 text-2xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
+        className="p-4 text-xl font-extrabold bg-transparent w-fit hover:text-emerald-600 rounded-4xl"
         type="button"
         onClick={handleGoBack}
       >
-        &#8592; Back
+        &#8592; Powrót
       </button>
       <ProductDetails
         data={{

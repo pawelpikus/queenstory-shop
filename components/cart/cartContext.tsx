@@ -19,6 +19,7 @@ interface CartState {
   items: CartItem[];
   addCartItem: (item: CartItem) => void;
   removeCartItem: (id: CartItem["id"]) => void;
+  calculateSubtotal: () => number;
 }
 
 export const CartContext = createContext<CartState | null>(null);
@@ -74,6 +75,14 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
             });
           });
         },
+        calculateSubtotal: () => {
+          let subtotal = 0;
+          const itemsInCart = cartItems;
+          itemsInCart.map((item) => {
+            subtotal += item.price * item.count;
+          });
+          return subtotal;
+        },
       }}
     >
       {children}
@@ -84,7 +93,7 @@ export const CartContextProvider = ({ children }: { children: ReactNode }) => {
 export const useCartState = () => {
   const cartState = useContext(CartContext);
   if (!cartState) {
-    throw new Error("There's no context provider.");
+    throw new Error("Wrap your component in context provider.");
   }
 
   return cartState;
