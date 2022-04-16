@@ -4,15 +4,17 @@ import { CartItem } from "../cart/cartContext";
 
 interface PrimaryButtonProps {
   children: ReactNode;
+  disabled?: boolean;
   item?: CartItem;
 }
 
-const SecondaryButton = ({ children, item }: PrimaryButtonProps) => {
+const SecondaryButton = ({ children, item, disabled }: PrimaryButtonProps) => {
   const cartState = useCartState();
   return (
     <button
+      disabled={disabled}
       onClick={() => item && cartState.addCartItem(item)}
-      className="px-2 py-1 transition-all bg-transparent border font-narrow hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent"
+      className={`disabled:opacity-75 px-2 py-1 transition-all bg-transparent border font-narrow hover:bg-emerald-500 text-emeral-700 hover:text-white border-emerald-500 hover:border-transparent`}
     >
       {children}
     </button>
