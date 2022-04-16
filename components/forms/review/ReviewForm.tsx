@@ -59,14 +59,14 @@ const ReviewForm = () => {
         },
       },
     });
-
+    console.log(result);
     reset();
   };
   return (
     <>
-      {isSubmitSuccessful && (
-        <div className="text-sm">Formularz wysłany poprawnie.</div>
-      )}
+      <div className="h-4 mb-2 text-sm text-emerald-500">
+        {isSubmitSuccessful && "Formularz wysłany poprawnie"}
+      </div>
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
