@@ -12,7 +12,12 @@ import {
   CreateProductReviewDocument,
   CreateProductReviewMutation,
   CreateProductReviewMutationVariables,
+  InputMaybe,
 } from "../../../generated/graphql";
+
+interface ReviewFormProps {
+  productSlug: InputMaybe<string>;
+}
 
 setLocale({
   mixed: {
@@ -34,7 +39,7 @@ const reviewFormSchema = yup
 
 export type ReviewFormData = yup.InferType<typeof reviewFormSchema>;
 
-const ReviewForm = () => {
+const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   const {
     register,
     reset,
@@ -56,6 +61,11 @@ const ReviewForm = () => {
           email: data.email,
           headline: data.headline,
           content: data.review,
+          product: {
+            connect: {
+              slug: productSlug,
+            },
+          },
         },
       },
     });
