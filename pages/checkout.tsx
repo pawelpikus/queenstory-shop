@@ -75,6 +75,7 @@ const CheckoutPage = () => {
     });
     console.log(result);
     items.length = 0;
+    localStorage.clear();
     reset();
   };
 
