@@ -1,10 +1,11 @@
 import React from "react";
 import { Path } from "react-hook-form";
 import { CheckoutFormData } from "../../pages/checkout";
+import { ReviewFormData } from "./review/ReviewForm";
 
 interface TextAreaProps {
   labelText: string;
-  labelFor: Path<CheckoutFormData>;
+  labelFor: Path<CheckoutFormData> | Path<ReviewFormData>;
   placeholder: string;
 }
 

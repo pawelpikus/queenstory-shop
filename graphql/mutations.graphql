@@ -1,0 +1,11 @@
+mutation CreateProductReview($review: ReviewCreateInput!) {
+  createReview(data: $review) {
+    id
+  }
+}
+
+mutation CreateNewOrder($order: OrderCreateInput!) {
+  createOrder(data: $order) {
+    id
+  }
+}

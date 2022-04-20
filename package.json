@@ -25,7 +25,7 @@
     "react-markdown": "^8.0.1",
     "react-query": "^3.34.16",
     "sharp": "^0.30.2",
-    "yup": "^1.0.0-beta.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
