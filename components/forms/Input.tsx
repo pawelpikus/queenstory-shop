@@ -1,7 +1,7 @@
 import React from "react";
 import { Path } from "react-hook-form";
 import { CheckoutFormData } from "../../pages/checkout";
-import { ReviewFormData } from "./review/ReviewForm";
+import { ReviewFormData } from "./review/ProductReviewForm";
 
 type InputProps = {
   labelText: string;

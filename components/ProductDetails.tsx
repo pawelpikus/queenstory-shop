@@ -5,8 +5,9 @@ import { NextSeo } from "next-seo";
 import MyReactMarkDown from "./MyReactMarkDown";
 import { MarkDownResult } from "../utils/types";
 import SecondaryButton from "./buttons/SecondaryButton";
-import ReviewForm from "./forms/review/ReviewForm";
+import ReviewForm from "./forms/review/ProductReviewForm";
 import { InputMaybe } from "../generated/graphql";
+import ProductReviewList from "./forms/review/ProductReviewList";
 
 export interface ProductDetails {
   page?: string;
@@ -95,6 +96,10 @@ export const ProductDetails = ({ data }: ProductProps) => {
         <div className="w-full p-4">
           <h3 className="my-4 text-xl">Twoja ocena produktu</h3>
           <ReviewForm productSlug={data.id as InputMaybe<string>} />
+        </div>
+        <div className="w-full p-4">
+          <h3 className="my-4 text-xl">Pozostałe oceny</h3>
+          <ProductReviewList productSlug={data.id as string} />
         </div>
       </div>
     </>
