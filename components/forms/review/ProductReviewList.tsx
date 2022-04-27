@@ -1,21 +1,16 @@
 import React from "react";
-import { useGetReviewsForProductSlugQuery } from "../../../generated/graphql";
+import { GetReviewsForProductSlugQuery } from "../../../generated/graphql";
 import ProductReview from "./ProductReview";
 
-type ProductReviewListProps = {
-  productSlug: string;
-};
+interface ProductReviewListProps {
+  data: GetReviewsForProductSlugQuery;
+}
 
-const ProductReviewList = ({ productSlug }: ProductReviewListProps) => {
-  const { data, loading, error } = useGetReviewsForProductSlugQuery({
-    variables: {
-      slug: productSlug,
-    },
-  });
-
+const ProductReviewList = ({ data }: ProductReviewListProps) => {
   if (!data?.product) {
     return null;
   }
+
   return (
     <ul className="flex flex-col gap-4 py-4">
       {data.product.reviews.map((review) => (

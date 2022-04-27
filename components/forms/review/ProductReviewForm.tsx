@@ -14,6 +14,7 @@ import {
   CreateProductReviewMutationVariables,
   InputMaybe,
 } from "../../../generated/graphql";
+import StarRating from "./StarRating/StarRating";
 
 interface ReviewFormProps {
   productSlug: InputMaybe<string>;
@@ -117,6 +118,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
             <FormErrorMsg text={errors.name.message} />
           )}
         </div>
+
         <div className="w-full lg:w-1/2">
           <TextArea
             {...register("review")}
@@ -128,7 +130,10 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
             <FormErrorMsg text={errors.review.message} />
           )}
         </div>
-
+        <div className="w-full lg:w-1/2">
+          <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
+          <StarRating rating={0} />
+        </div>
         <div className="w-full mt-4 lg:w-1/2">
           <SecondaryButton disabled={isSubmitting}>
             Wyślij ocenę
