@@ -81,59 +81,52 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className="flex flex-col w-full gap-4"
       >
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("name")}
-            labelText="Imię"
-            labelFor="name"
-            type="text"
-          />
-          {errors.name && errors.name.message && (
-            <FormErrorMsg text={errors.name.message} />
-          )}
-        </div>
+        <Input
+          {...register("name")}
+          labelText="Imię"
+          labelFor="name"
+          type="text"
+        />
+        {errors.name && errors.name.message && (
+          <FormErrorMsg text={errors.name.message} />
+        )}
 
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("email")}
-            labelText="Adres email"
-            labelFor="email"
-            type="email"
-          />
+        <Input
+          {...register("email")}
+          labelText="Adres email"
+          labelFor="email"
+          type="email"
+        />
 
-          {errors.email && errors.email.message && (
-            <FormErrorMsg text={errors.email.message} />
-          )}
-        </div>
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("headline")}
-            labelText="Nagłówek oceny"
-            labelFor="headline"
-            type="text"
-          />
-          {errors.name && errors.name.message && (
-            <FormErrorMsg text={errors.name.message} />
-          )}
-        </div>
+        {errors.email && errors.email.message && (
+          <FormErrorMsg text={errors.email.message} />
+        )}
 
-        <div className="w-full lg:w-1/2">
-          <TextArea
-            {...register("review")}
-            labelText={"Zostaw komentarz"}
-            labelFor={"review"}
-            placeholder={"Wspaniały produkt!"}
-          />
-          {errors.review && errors.review.message && (
-            <FormErrorMsg text={errors.review.message} />
-          )}
-        </div>
-        <div className="w-full lg:w-1/2">
-          <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
-          <StarRating rating={0} />
-        </div>
+        <Input
+          {...register("headline")}
+          labelText="Nagłówek oceny"
+          labelFor="headline"
+          type="text"
+        />
+        {errors.name && errors.name.message && (
+          <FormErrorMsg text={errors.name.message} />
+        )}
+
+        <TextArea
+          {...register("review")}
+          labelText={"Zostaw komentarz"}
+          labelFor={"review"}
+          placeholder={"Wspaniały produkt!"}
+        />
+        {errors.review && errors.review.message && (
+          <FormErrorMsg text={errors.review.message} />
+        )}
+
+        <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
+        <StarRating rating={0} />
+
         <div className="w-full mt-4 lg:w-1/2">
           <SecondaryButton disabled={isSubmitting}>
             Wyślij ocenę

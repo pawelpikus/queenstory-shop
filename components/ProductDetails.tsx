@@ -88,18 +88,21 @@ export const ProductDetails = ({ data }: ProductProps) => {
             </SecondaryButton>
           </article>
         </div>
+
         <div className="w-full mt-8 border-t-4 border-neutral-50">
           <article className="p-4 my-12 prose prose-neutral">
             <MyReactMarkDown>{data.longDesc}</MyReactMarkDown>
           </article>
         </div>
-        <div className="w-full p-4">
-          <h3 className="my-4 text-xl">Twoja ocena produktu</h3>
-          <ReviewForm productSlug={data.id as InputMaybe<string>} />
-        </div>
-        <div className="w-full p-4">
-          <h3 className="my-4 text-xl">Pozostałe oceny</h3>
-          <ProductReviewListContainer productSlug={data.id as string} />
+        <div className="flex flex-col justify-between w-full gap-4 md:flex-row">
+          <div className="w-full p-4 ">
+            <h3 className="my-4 text-xl">Twoja ocena produktu</h3>
+            <ReviewForm productSlug={data.id as InputMaybe<string>} />
+          </div>
+          <div className="w-full p-4">
+            <h3 className="my-4 text-xl">Pozostałe oceny</h3>
+            <ProductReviewListContainer productSlug={data.id as string} />
+          </div>
         </div>
       </div>
     </>

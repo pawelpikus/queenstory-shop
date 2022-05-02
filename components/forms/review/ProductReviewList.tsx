@@ -13,9 +13,13 @@ const ProductReviewList = ({ data }: ProductReviewListProps) => {
 
   return (
     <ul className="flex flex-col gap-4 py-4">
-      {data.product.reviews.map((review) => (
-        <ProductReview key={review.id} review={review} />
-      ))}
+      {data.product.reviews.length > 0 ? (
+        data.product.reviews.map((review) => (
+          <ProductReview key={review.id} review={review} />
+        ))
+      ) : (
+        <p>Brak ocen. Pozostaw pierwszą!</p>
+      )}
     </ul>
   );
 };
