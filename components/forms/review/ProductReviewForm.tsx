@@ -53,6 +53,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   });
 
   const onSubmit: SubmitHandler<ReviewFormData> = async (data) => {
+    console.log(data);
     const result = await apolloClient.mutate<
       CreateProductReviewMutation,
       CreateProductReviewMutationVariables
@@ -129,12 +130,11 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
 
         <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
         <Controller
-          render={({ field: { onChange, value } }) => (
-            <StarRating onChange={onChange} rating={value} />
-          )}
           name={"rating"}
           control={control}
-          defaultValue={0}
+          render={({ field }) => <StarRating {...field} />}
+          rules={{ required: true }}
+          defaultValue={1}
         />
 
         <div className="w-full mt-4 lg:w-1/2">
