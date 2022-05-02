@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { setLocale } from "yup";
 import FormErrorMsg from "../FormErrorMsg";
 import Input from "../Input";
@@ -35,6 +35,7 @@ const reviewFormSchema = yup
     email: yup.string().trim().email().required(),
     headline: yup.string().trim().required(),
     review: yup.string().trim().required(),
+    rating: yup.number().required(),
   })
   .required();
 
@@ -43,6 +44,7 @@ export type ReviewFormData = yup.InferType<typeof reviewFormSchema>;
 const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   const {
     register,
+    control,
     reset,
     handleSubmit,
     formState: { errors, isSubmitSuccessful, isSubmitting },
@@ -62,6 +64,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
           email: data.email,
           headline: data.headline,
           content: data.review,
+          rating: data.rating,
           product: {
             connect: {
               slug: productSlug,
@@ -125,7 +128,14 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         )}
 
         <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
-        <StarRating rating={0} />
+        <Controller
+          render={({ field: { onChange, value } }) => (
+            <StarRating onChange={onChange} rating={value} />
+          )}
+          name={"rating"}
+          control={control}
+          defaultValue={0}
+        />
 
         <div className="w-full mt-4 lg:w-1/2">
           <SecondaryButton disabled={isSubmitting}>
