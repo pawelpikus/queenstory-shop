@@ -1,29 +1,20 @@
-import { storeValueIsStoreObject } from "@apollo/client/cache/inmemory/helpers";
 import React, { useState } from "react";
 import StarIconEmpty from "./StarIconEmpty";
 import StarIconFilled from "./StarIconFilled";
-
 type StarRatingProps = {
-  onChange: (...event: any[]) => void;
+  setValue: any;
 };
 
 const StarRating = React.forwardRef(function StarRatingInput(
-  { onChange }: StarRatingProps,
-  ref: any,
-  ...field
+  { setValue }: StarRatingProps,
+  ref: any
 ) {
   const [starRating, setStarRating] = useState(0);
   const [hover, setHover] = useState(0);
 
   return (
     <div className="flex gap-2">
-      <input
-        type="number"
-        {...field}
-        ref={ref}
-        value={starRating}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      <input type="hidden" ref={ref} />
       {[...Array(5)].map((_, i) => {
         i += 1;
         return (
@@ -32,6 +23,7 @@ const StarRating = React.forwardRef(function StarRatingInput(
             type="button"
             onClick={() => {
               setStarRating(i);
+              setValue("rating", i);
             }}
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(starRating)}

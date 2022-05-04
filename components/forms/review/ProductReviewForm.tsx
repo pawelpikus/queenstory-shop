@@ -24,6 +24,7 @@ interface ReviewFormProps {
 setLocale({
   mixed: {
     required: "To pole jest wymagane",
+    notType: "Zaznacz przynajmniej jedną gwiazdkę.",
   },
   string: {
     email: "Podaj poprawny adres email",
@@ -45,7 +46,7 @@ export type ReviewFormData = yup.InferType<typeof reviewFormSchema>;
 const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   const {
     register,
-    control,
+    setValue,
     reset,
     handleSubmit,
     formState: { errors, isSubmitSuccessful, isSubmitting },
@@ -97,18 +98,15 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         {errors.name && errors.name.message && (
           <FormErrorMsg text={errors.name.message} />
         )}
-
         <Input
           {...register("email")}
           labelText="Adres email"
           labelFor="email"
           type="email"
         />
-
         {errors.email && errors.email.message && (
           <FormErrorMsg text={errors.email.message} />
         )}
-
         <Input
           {...register("headline")}
           labelText="Nagłówek oceny"
@@ -118,7 +116,6 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         {errors.name && errors.name.message && (
           <FormErrorMsg text={errors.name.message} />
         )}
-
         <TextArea
           {...register("review")}
           labelText={"Zostaw komentarz"}
@@ -128,15 +125,10 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         {errors.review && errors.review.message && (
           <FormErrorMsg text={errors.review.message} />
         )}
-
         <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
-        <Controller
-          name="rating"
-          control={control}
-          render={({ field }) => {
-            return <input {...field} onChange={field.onChange} />;
-          }}
-          defaultValue={0}
+        <StarRating
+          {...register("rating", { required: true })}
+          setValue={setValue}
         />
         {errors.rating && errors.rating.message && (
           <FormErrorMsg text={errors.rating.message} />
