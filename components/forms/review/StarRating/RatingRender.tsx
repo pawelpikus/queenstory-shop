@@ -1,9 +1,10 @@
 import React from "react";
+import { ReviewContentFragment } from "../../../../generated/graphql";
 import StarIconEmpty from "./StarIconEmpty";
 import StarIconFilled from "./StarIconFilled";
 
 type Props = {
-  review: any;
+  review: ReviewContentFragment;
 };
 
 const RatingRender = ({ review }: Props) => {
