@@ -15,6 +15,7 @@ import {
   InputMaybe,
 } from "../../../generated/graphql";
 import StarRating from "./StarRating/StarRating";
+import { fieldNameFromStoreName } from "@apollo/client/cache";
 
 interface ReviewFormProps {
   productSlug: InputMaybe<string>;
@@ -130,13 +131,16 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
 
         <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
         <Controller
-          name={"rating"}
+          name="rating"
           control={control}
-          render={({ field }) => <StarRating {...field} />}
-          rules={{ required: true }}
-          defaultValue={1}
+          render={({ field }) => {
+            return <input {...field} onChange={field.onChange} />;
+          }}
+          defaultValue={0}
         />
-
+        {errors.rating && errors.rating.message && (
+          <FormErrorMsg text={errors.rating.message} />
+        )}
         <div className="w-full mt-4 lg:w-1/2">
           <SecondaryButton disabled={isSubmitting}>
             Wyślij ocenę
