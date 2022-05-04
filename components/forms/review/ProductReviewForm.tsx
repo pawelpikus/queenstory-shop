@@ -76,7 +76,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         },
       },
     });
-    console.log(result);
+
     reset();
   };
   return (
