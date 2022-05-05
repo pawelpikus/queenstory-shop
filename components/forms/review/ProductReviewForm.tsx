@@ -13,6 +13,7 @@ import {
   CreateProductReviewMutation,
   CreateProductReviewMutationVariables,
   InputMaybe,
+  useCreateProductReviewMutation,
 } from "../../../generated/graphql";
 import StarRating from "./StarRating/StarRating";
 import { fieldNameFromStoreName } from "@apollo/client/cache";
@@ -54,12 +55,11 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
     resolver: yupResolver(reviewFormSchema),
   });
 
+  const [createReview, { data, loading, error }] =
+    useCreateProductReviewMutation();
+
   const onSubmit: SubmitHandler<ReviewFormData> = async (data) => {
-    console.log(data);
-    const result = await apolloClient.mutate<
-      CreateProductReviewMutation,
-      CreateProductReviewMutationVariables
-    >({
+    createReview({
       mutation: CreateProductReviewDocument,
       variables: {
         review: {
@@ -134,7 +134,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
           <FormErrorMsg text={errors.rating.message} />
         )}
         <div className="w-full mt-4 lg:w-1/2">
-          <SecondaryButton disabled={isSubmitting}>
+          <SecondaryButton disabled={isSubmitting && loading}>
             Wyślij ocenę
           </SecondaryButton>
         </div>
