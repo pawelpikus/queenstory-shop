@@ -1,8 +1,6 @@
 import React from "react";
 import { ReviewContentFragment } from "../../../generated/graphql";
 import RatingRender from "./StarRating/RatingRender";
-import StarIconEmpty from "./StarRating/StarIconEmpty";
-import StarIconFilled from "./StarRating/StarIconFilled";
 
 type ProductReviewProps = {
   review: ReviewContentFragment;

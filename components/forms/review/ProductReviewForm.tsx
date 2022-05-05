@@ -1,23 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import React from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { setLocale } from "yup";
 import FormErrorMsg from "../FormErrorMsg";
 import Input from "../Input";
 import TextArea from "../TextArea";
 import SecondaryButton from "../../buttons/SecondaryButton";
-import { apolloClient } from "../../../graphql/apolloClient";
 import {
   CreateProductReviewDocument,
-  CreateProductReviewMutation,
-  CreateProductReviewMutationVariables,
   GetReviewsForProductSlugDocument,
   InputMaybe,
   useCreateProductReviewMutation,
 } from "../../../generated/graphql";
 import StarRating from "./StarRating/StarRating";
-import { fieldNameFromStoreName } from "@apollo/client/cache";
 
 interface ReviewFormProps {
   productSlug: InputMaybe<string>;
@@ -56,15 +52,14 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
     resolver: yupResolver(reviewFormSchema),
   });
 
-  const [createReview, { data, loading, error }] =
-    useCreateProductReviewMutation({
-      refetchQueries: [
-        {
-          query: GetReviewsForProductSlugDocument,
-          variables: { slug: productSlug },
-        },
-      ],
-    });
+  const [createReview, { loading }] = useCreateProductReviewMutation({
+    refetchQueries: [
+      {
+        query: GetReviewsForProductSlugDocument,
+        variables: { slug: productSlug },
+      },
+    ],
+  });
 
   const onSubmit: SubmitHandler<ReviewFormData> = async (data) => {
     createReview({
@@ -134,10 +129,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
           <FormErrorMsg text={errors.review.message} />
         )}
         <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
-        <StarRating
-          {...register("rating", { required: true })}
-          setValue={setValue}
-        />
+        <StarRating {...register("rating")} setValue={setValue} />
         {errors.rating && errors.rating.message && (
           <FormErrorMsg text={errors.rating.message} />
         )}
