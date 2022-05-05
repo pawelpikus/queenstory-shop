@@ -12,6 +12,7 @@ import {
   CreateProductReviewDocument,
   CreateProductReviewMutation,
   CreateProductReviewMutationVariables,
+  GetReviewsForProductSlugDocument,
   InputMaybe,
   useCreateProductReviewMutation,
 } from "../../../generated/graphql";
@@ -56,7 +57,14 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   });
 
   const [createReview, { data, loading, error }] =
-    useCreateProductReviewMutation();
+    useCreateProductReviewMutation({
+      refetchQueries: [
+        {
+          query: GetReviewsForProductSlugDocument,
+          variables: { slug: productSlug },
+        },
+      ],
+    });
 
   const onSubmit: SubmitHandler<ReviewFormData> = async (data) => {
     createReview({
