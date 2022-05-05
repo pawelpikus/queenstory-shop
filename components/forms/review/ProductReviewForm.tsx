@@ -7,13 +7,13 @@ import FormErrorMsg from "../FormErrorMsg";
 import Input from "../Input";
 import TextArea from "../TextArea";
 import SecondaryButton from "../../buttons/SecondaryButton";
-import { apolloClient } from "../../../graphql/apolloClient";
 import {
   CreateProductReviewDocument,
-  CreateProductReviewMutation,
-  CreateProductReviewMutationVariables,
+  GetReviewsForProductSlugDocument,
   InputMaybe,
+  useCreateProductReviewMutation,
 } from "../../../generated/graphql";
+import StarRating from "./StarRating/StarRating";
 
 interface ReviewFormProps {
   productSlug: InputMaybe<string>;
@@ -22,6 +22,7 @@ interface ReviewFormProps {
 setLocale({
   mixed: {
     required: "To pole jest wymagane",
+    notType: "Zaznacz przynajmniej jedną gwiazdkę.",
   },
   string: {
     email: "Podaj poprawny adres email",
@@ -34,6 +35,7 @@ const reviewFormSchema = yup
     email: yup.string().trim().email().required(),
     headline: yup.string().trim().required(),
     review: yup.string().trim().required(),
+    rating: yup.number().required(),
   })
   .required();
 
@@ -42,6 +44,7 @@ export type ReviewFormData = yup.InferType<typeof reviewFormSchema>;
 const ReviewForm = ({ productSlug }: ReviewFormProps) => {
   const {
     register,
+    setValue,
     reset,
     handleSubmit,
     formState: { errors, isSubmitSuccessful, isSubmitting },
@@ -49,11 +52,17 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
     resolver: yupResolver(reviewFormSchema),
   });
 
+  const [createReview, { loading }] = useCreateProductReviewMutation({
+    refetchQueries: [
+      {
+        query: GetReviewsForProductSlugDocument,
+        variables: { slug: productSlug },
+      },
+    ],
+  });
+
   const onSubmit: SubmitHandler<ReviewFormData> = async (data) => {
-    const result = await apolloClient.mutate<
-      CreateProductReviewMutation,
-      CreateProductReviewMutationVariables
-    >({
+    createReview({
       mutation: CreateProductReviewDocument,
       variables: {
         review: {
@@ -61,6 +70,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
           email: data.email,
           headline: data.headline,
           content: data.review,
+          rating: data.rating,
           product: {
             connect: {
               slug: productSlug,
@@ -69,7 +79,7 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
         },
       },
     });
-    console.log(result);
+
     reset();
   };
   return (
@@ -80,57 +90,51 @@ const ReviewForm = ({ productSlug }: ReviewFormProps) => {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className="flex flex-col w-full gap-4"
       >
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("name")}
-            labelText="Imię"
-            labelFor="name"
-            type="text"
-          />
-          {errors.name && errors.name.message && (
-            <FormErrorMsg text={errors.name.message} />
-          )}
-        </div>
-
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("email")}
-            labelText="Adres email"
-            labelFor="email"
-            type="email"
-          />
-
-          {errors.email && errors.email.message && (
-            <FormErrorMsg text={errors.email.message} />
-          )}
-        </div>
-        <div className="w-full lg:w-1/2">
-          <Input
-            {...register("headline")}
-            labelText="Nagłówek oceny"
-            labelFor="headline"
-            type="text"
-          />
-          {errors.name && errors.name.message && (
-            <FormErrorMsg text={errors.name.message} />
-          )}
-        </div>
-        <div className="w-full lg:w-1/2">
-          <TextArea
-            {...register("review")}
-            labelText={"Zostaw komentarz"}
-            labelFor={"review"}
-            placeholder={"Wspaniały produkt!"}
-          />
-          {errors.review && errors.review.message && (
-            <FormErrorMsg text={errors.review.message} />
-          )}
-        </div>
-
+        <Input
+          {...register("name")}
+          labelText="Imię"
+          labelFor="name"
+          type="text"
+        />
+        {errors.name && errors.name.message && (
+          <FormErrorMsg text={errors.name.message} />
+        )}
+        <Input
+          {...register("email")}
+          labelText="Adres email"
+          labelFor="email"
+          type="email"
+        />
+        {errors.email && errors.email.message && (
+          <FormErrorMsg text={errors.email.message} />
+        )}
+        <Input
+          {...register("headline")}
+          labelText="Nagłówek oceny"
+          labelFor="headline"
+          type="text"
+        />
+        {errors.name && errors.name.message && (
+          <FormErrorMsg text={errors.name.message} />
+        )}
+        <TextArea
+          {...register("review")}
+          labelText={"Zostaw komentarz"}
+          labelFor={"review"}
+          placeholder={"Wspaniały produkt!"}
+        />
+        {errors.review && errors.review.message && (
+          <FormErrorMsg text={errors.review.message} />
+        )}
+        <h3 className="block mb-1 text-sm">Na ile oceniasz ten produkt?</h3>
+        <StarRating {...register("rating")} setValue={setValue} />
+        {errors.rating && errors.rating.message && (
+          <FormErrorMsg text={errors.rating.message} />
+        )}
         <div className="w-full mt-4 lg:w-1/2">
-          <SecondaryButton disabled={isSubmitting}>
+          <SecondaryButton disabled={isSubmitting && loading}>
             Wyślij ocenę
           </SecondaryButton>
         </div>
