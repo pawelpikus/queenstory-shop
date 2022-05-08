@@ -1,21 +1,21 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import PrimaryButton from "../components/buttons/PrimaryButton";
-import FormErrorMsg from "../components/forms/FormErrorMsg";
-import Input from "../components/forms/Input";
-import TextArea from "../components/forms/TextArea";
+import PrimaryButton from "../../components/buttons/PrimaryButton";
+import FormErrorMsg from "../../components/forms/FormErrorMsg";
+import Input from "../../components/forms/Input";
+import TextArea from "../../components/forms/TextArea";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { setLocale } from "yup";
-import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
-import { useCartState } from "../components/cart/cartContext";
-import { apolloClient } from "../graphql/apolloClient";
+import CheckoutOrderSummary from "../../components/checkout/CheckoutOrderSummary";
+import { useCartState } from "../../components/cart/cartContext";
+import { apolloClient } from "../../graphql/apolloClient";
 import {
   CreateNewOrderDocument,
   CreateNewOrderMutation,
   CreateNewOrderMutationVariables,
   InputMaybe,
-} from "../generated/graphql";
-import CheckoutConfirmation from "../components/checkout/OrderConfirmation";
+} from "../../generated/graphql";
+import CheckoutConfirmation from "../../components/checkout/OrderConfirmation";
 
 setLocale({
   mixed: {

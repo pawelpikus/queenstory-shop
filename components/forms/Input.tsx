@@ -1,6 +1,6 @@
 import React from "react";
 import { Path } from "react-hook-form";
-import { CheckoutFormData } from "../../pages/checkout";
+import { CheckoutFormData } from "../../pages/checkout/order";
 import { ReviewFormData } from "./review/ProductReviewForm";
 
 type InputProps = {

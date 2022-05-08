@@ -11,7 +11,7 @@ export const Footer = () => {
           reserved.
         </p>
         <div className="flex gap-4 mb-4 text-center">
-          <Link href="#">
+          <Link href="https://www.youtube.com/">
             <a
               className=" text-emerald-500 hover:text-emerald-600"
               target="_blank"
@@ -20,7 +20,7 @@ export const Footer = () => {
               <SiYoutube />
             </a>
           </Link>
-          <Link href="#">
+          <Link href="https://www.instagram.com/?hl=en">
             <a
               className=" text-emerald-500 hover:text-emerald-600"
               target="_blank"
@@ -29,7 +29,7 @@ export const Footer = () => {
               <SiInstagram />
             </a>
           </Link>
-          <Link href="#">
+          <Link href="https://www.facebook.com/">
             <a
               className="text-emerald-500 hover:text-emerald-600"
               target="_blank"

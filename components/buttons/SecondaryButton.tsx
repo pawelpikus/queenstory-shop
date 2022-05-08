@@ -2,13 +2,17 @@ import { ReactNode } from "react";
 import { useCartState } from "../cart/cartContext";
 import { CartItem } from "../cart/cartContext";
 
-interface PrimaryButtonProps {
+interface SecondaryButtonProps {
   children: ReactNode;
   disabled?: boolean;
   item?: CartItem;
 }
 
-const SecondaryButton = ({ children, item, disabled }: PrimaryButtonProps) => {
+const SecondaryButton = ({
+  children,
+  item,
+  disabled,
+}: SecondaryButtonProps) => {
   const { addCartItem } = useCartState();
   return (
     <button

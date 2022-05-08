@@ -1,11 +1,50 @@
-import React, { useEffect } from "react";
-import { routes } from "../../routes/routes";
+import { loadStripe } from "@stripe/stripe-js";
+import React from "react";
+import Stripe from "stripe";
 import { formatter } from "../../utils/priceFormatter";
-import PrimaryLink from "../links/PrimaryLink";
+import PrimaryButton from "../buttons/PrimaryButton";
+import { ErrorMsg } from "../ErrorMsg";
 import { useCartState } from "./cartContext";
 
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+if (!stripePublishableKey) {
+  throw new Error("Podaj stripe pusblishable key.");
+}
+const stripePromise = loadStripe(stripePublishableKey);
+
 const CartSummary = () => {
-  const { calculateSubtotal } = useCartState();
+  const { calculateSubtotal, items } = useCartState();
+
+  const pay = async () => {
+    const stripe = await stripePromise;
+
+    if (!stripe) {
+      throw new Error("Ups! Coś poszło nie tak...");
+    }
+
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        items.map((item) => {
+          return {
+            slug: item.id,
+            count: item.count,
+          };
+        })
+      ),
+    });
+
+    const { session }: { session: Stripe.Response<Stripe.Checkout.Session> } =
+      await res.json();
+
+    const result = await stripe.redirectToCheckout({ sessionId: session.id });
+    if (result.error) {
+      <ErrorMsg message={result.error.message} />;
+    }
+  };
 
   return (
     <div className="flex justify-end">
@@ -33,7 +72,7 @@ const CartSummary = () => {
             </tbody>
           </table>
         </div>
-        <PrimaryLink href={routes.CHECKOUT}>Przejdź do kasy</PrimaryLink>
+        <PrimaryButton pay={pay}>Przejdź do kasy</PrimaryButton>
       </div>
     </div>
   );
