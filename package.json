@@ -26,8 +26,12 @@
     "react-markdown": "^8.0.1",
     "react-query": "^3.34.16",
     "sharp": "^0.30.2",
+<<<<<<< HEAD
     "stripe": "^8.222.0",
     "yup": "^1.0.0-beta.3"
+=======
+    "yup": "^0.32.11"
+>>>>>>> f2a41857745686a158f68cc0182396523d37affb
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
