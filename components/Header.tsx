@@ -1,21 +1,12 @@
-import Link from "next/link";
-import React from "react";
-import { routes } from "../routes/routes";
+import HamburgerMenu from "./HamburgerMenu";
+import DesktopMenu from "./DesktopMenu";
+import CartBar from "./cart/CartBar";
 
 export const Header = () => {
   return (
-    <header className="py-8 bg-slate-700">
-      <nav className="flex w-11/12 gap-6 mx-auto font-bold tracking-wider text-gray-300 uppercase max-w-7xl text-md ">
-        <Link href={routes.HOME}>
-          <a className="transition-colors hover:text-white">Home</a>
-        </Link>
-        <Link href={routes.PRODUCTS}>
-          <a className="transition-colors hover:text-white">Products (SSG)</a>
-        </Link>
-        <Link href={routes.PRODUCTS_CSR}>
-          <a className="transition-colors hover:text-white">Products (CSR)</a>
-        </Link>
-      </nav>
+    <header className="flex items-center justify-between py-4 bg-neutral-800">
+      <HamburgerMenu />
+      <DesktopMenu />
     </header>
   );
 };

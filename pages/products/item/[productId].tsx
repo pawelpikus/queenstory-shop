@@ -3,14 +3,18 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import { Footer } from "../../../components/Footer";
-import { Header } from "../../../components/Header";
-import { ProductDetails } from "../../../components/Product";
+import { ProductDetails } from "../../../components/ProductDetails";
+import { ProductSkeleton } from "../../../components/ProductSkeleton";
+import { serialize } from "next-mdx-remote/serialize";
 
 const ProductIdPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
 
   if (!data) {
     return (
@@ -23,53 +27,47 @@ const ProductIdPage = ({
     );
   }
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="flex flex-col min-h-screen bg-slate-200">
-      <Header />
-      <div className="flex-grow w-11/12 max-w-lg mx-auto mb-8 ">
-        <button
-          className="p-4 text-2xl font-extrabold w-fit hover:text-amber-700 rounded-4xl bg-slate-200"
-          type="button"
-          onClick={() => router.back()}
-        >
-          &#8592; Back
-        </button>
-        <ProductDetails
-          data={{
-            id: data.id,
-            title: data.title,
-            imgSrc: data.image,
-            category: data.category,
-            price: data.price,
-            desc: data.description,
-            rating: data.rating.rate,
-          }}
-        />
-      </div>
-      <Footer />
+    <div className="w-full max-w-6xl mx-auto sm:w-11/12">
+      <button
+        className="p-4 font-extrabold bg-transparent tSext-2xl w-fit hover:text-emerald-600 rounded-4xl"
+        type="button"
+        onClick={handleGoBack}
+      >
+        &#8592; Back
+      </button>
+      {router.isFallback ? (
+        <ProductSkeleton />
+      ) : (
+        data && (
+          <ProductDetails
+            data={{
+              id: data.id,
+              title: data.title,
+              imgSrc: data.image,
+              category: data.category,
+              price: data.price,
+              desc: data.description,
+              longDesc: data.longDescription,
+              rating: data.rating.rate,
+            }}
+          />
+        )
+      )}
     </div>
   );
 };
 
 export default ProductIdPage;
+const NUMBER_OF_STATIC_PRODUCTS = 275;
 
 export const getStaticPaths = async () => {
-  const res = await fetch("https://naszsklep-api.vercel.app/api/products");
-  const data: StoreAPIResponse[] = await res.json();
+  const paths = Array.from({ length: NUMBER_OF_STATIC_PRODUCTS }, (_, i) => ({
+    params: { productId: (i + 1).toString() },
+  }));
 
   return {
-    paths: data.map((product) => {
-      return {
-        params: {
-          productId: product.id.toString(),
-        },
-      };
-    }),
-
+    paths,
     fallback: true,
   };
 };
@@ -88,9 +86,19 @@ export const getStaticProps = async ({
   );
   const data: StoreAPIResponse | null = await res.json();
 
+  if (!data) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      data,
+      data: {
+        ...data,
+        longDescription: await serialize(data.longDescription),
+      },
     },
   };
 };
@@ -103,6 +111,7 @@ export interface StoreAPIResponse {
   category: string;
   image: string;
   rating: Rating;
+  longDescription: string;
 }
 
 export interface Rating {

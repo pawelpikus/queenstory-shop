@@ -1,64 +1,142 @@
 import Link from "next/link";
-import { PAGES_COUNT } from "../utils/consts";
+import { routes } from "../routes/routes";
+import { LEFT_RIGHT } from "../utils/consts";
 
 type PaginationProps = {
-  currentPage: string | undefined;
+  activePage: number;
+  totalPages: number | undefined;
+  minPageLimit: number;
+  maxPageLimit: number;
+  onPrevClick: () => void;
+  onNextClick: () => void;
 };
 
-const PaginationSSG = ({ currentPage }: PaginationProps) => {
-  const currentPageNum = Number(currentPage);
+const PaginationSSG = ({
+  onNextClick,
+  onPrevClick,
+  activePage,
+  minPageLimit,
+  maxPageLimit,
+  totalPages,
+}: PaginationProps) => {
+  const currentPageNum = activePage || 0;
+  const totalPagesNum = totalPages || 2;
+
+  const pages = [...new Array(totalPagesNum - 2)].map((_, i) => i + 1);
+
+  const handlePrevClick = () => {
+    onPrevClick();
+  };
+
+  const handleNextClick = () => {
+    onNextClick();
+  };
 
   return (
-    <div className="flex flex-col items-center px-4 mt-12 mb-8 border-t border-gray-200 sm:px-0">
-      <div className="flex items-center w-full gap-4">
-        <Link
-          href={
-            currentPageNum > 2 ? `/products/${currentPageNum - 1}` : `/products`
-          }
-        >
-          <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
-            Previous Page
-          </a>
-        </Link>
-        <div className="hidden md:-mt-px md:flex">
-          <Link href={`/products`}>
-            <a
-              className={`${
-                currentPage === "1"
-                  ? `text-amber-700 border-t-2 border-amber-600`
-                  : `text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300`
-              } inline-flex items-center p-4 text-sm font-extrabold  border-t-2  `}
+    <div className="mt-12 mb-8 border-neutral-200">
+      <div className="flex items-center justify-center w-full md:gap-4">
+        {!activePage ? (
+          <div className="font-bold text-neutral-500">Loading...</div>
+        ) : (
+          <>
+            <Link
+              scroll={false}
+              href={
+                currentPageNum > 1
+                  ? `${routes.PRODUCTS}/${currentPageNum - 1}`
+                  : `${routes.PRODUCTS}/1`
+              }
             >
-              {1}
-            </a>
-          </Link>
-          {Array.from({ length: PAGES_COUNT - 1 }, (_, i) => {
-            return (
-              <Link key={i} href={`/products/${i + 2}`}>
+              <a
+                onClick={handlePrevClick}
+                className={` ${
+                  currentPageNum <= 1
+                    ? `pointer-events-none text-neutral-400`
+                    : null
+                }   font-semibold p-3 transition-colors hover:text-emerald-600`}
+              >
+                Poprzednia
+              </a>
+            </Link>
+            <div className="items-baseline hidden sm:flex">
+              <Link scroll={false} href={`${routes.PRODUCTS}/1`}>
                 <a
+                  onClick={handlePrevClick}
                   className={`${
-                    currentPage === String(i + 2)
-                      ? `text-amber-700 border-t-2 border-amber-600`
-                      : `text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300`
-                  } inline-flex items-center p-4 text-sm font-extrabold  border-t-2  `}
+                    currentPageNum === 1
+                      ? `text-emerald-700 border-t-2 border-emerald-600`
+                      : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+                  } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
                 >
-                  {i + 2}
+                  1
                 </a>
               </Link>
-            );
-          })}
-        </div>
-        <Link
-          href={
-            currentPageNum < PAGES_COUNT - 1
-              ? `/products/${currentPageNum + 1}`
-              : `/products/${PAGES_COUNT}`
-          }
-        >
-          <a className="mx-4 font-semibold transition-colors hover:text-amber-600 ">
-            Next Page
-          </a>
-        </Link>
+
+              {minPageLimit > LEFT_RIGHT + 1 ? <div>&hellip;</div> : null}
+              {pages.map((page) => {
+                if (
+                  page < maxPageLimit - LEFT_RIGHT &&
+                  page >= minPageLimit - LEFT_RIGHT
+                ) {
+                  return (
+                    <Link
+                      scroll={false}
+                      key={page}
+                      href={`${routes.PRODUCTS}/${page + 1}`}
+                    >
+                      <a
+                        className={`${
+                          currentPageNum === page + 1
+                            ? `text-emerald-700 border-t-2 border-emerald-600`
+                            : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+                        } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
+                      >
+                        {page + 1}
+                      </a>
+                    </Link>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+              {pages.length > maxPageLimit - (LEFT_RIGHT + 1) ? (
+                <div>&hellip;</div>
+              ) : null}
+
+              <Link scroll={false} href={`${routes.PRODUCTS}/${totalPages}`}>
+                <a
+                  className={`${
+                    activePage === totalPages
+                      ? `text-emerald-700 border-t-2 border-emerald-600`
+                      : `text-neutral-500 border-transparent hover:text-neutral-700 hover:border-neutral-300`
+                  } inline-flex items-center p-2 text-sm font-extrabold  border-t-2`}
+                >
+                  {totalPages}
+                </a>
+              </Link>
+            </div>
+
+            <Link
+              scroll={false}
+              href={
+                totalPages && currentPageNum < totalPages
+                  ? `/products/${currentPageNum + 1}`
+                  : `/products/${totalPages}`
+              }
+            >
+              <a
+                onClick={handleNextClick}
+                className={` ${
+                  currentPageNum === totalPages
+                    ? `pointer-events-none text-neutral-400`
+                    : null
+                } p-3 font-semibold transition-colors hover:text-emerald-600`}
+              >
+                Następna
+              </a>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

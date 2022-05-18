@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { ProductListItem } from "../components/Product";
+import { ProductListItem } from "../components/ProductListItem";
 import { ProductSkeleton } from "../components/ProductSkeleton";
 import PaginationCSR from "../components/PaginationCSR";
-
-const OFFSET = 25;
-const ITEMS_PER_PAGE = 25;
-const FAKE_PRODUCT_COUNT = 8;
+import { FAKE_PRODUCT_COUNT, OFFSET, ITEMS_PER_PAGE } from "../utils/consts";
 
 const getProducts = async (page: number) => {
   let offset = page * OFFSET;
@@ -35,47 +30,42 @@ const ProductsCSRPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-200">
-      <Header />
-      <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
-        <PaginationCSR
-          page={page}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-          isFetching={isFetching}
-        />
-        <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data ? (
-            data.map((item: StoreAPIResponse) => (
-              <li key={item.id}>
-                <ProductListItem
-                  id={item.id}
-                  title={item.title}
-                  imgSrc={item.image}
-                  category={item.category}
-                  price={item.price}
-                />
+    <div className="flex flex-col items-center flex-grow w-11/12 mx-auto mb-8 max-w-7xl">
+      <PaginationCSR
+        page={page}
+        setPage={setPage}
+        isPreviousData={isPreviousData}
+        isFetching={isFetching}
+      />
+      <ul className="grid content-between grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {data ? (
+          data.map((item: StoreAPIResponse) => (
+            <li key={item.id}>
+              <ProductListItem
+                id={item.id}
+                title={item.title}
+                imgSrc={item.image}
+                category={item.category}
+                price={item.price}
+              />
+            </li>
+          ))
+        ) : (
+          <>
+            {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
+              <li key={i}>
+                <ProductSkeleton />
               </li>
-            ))
-          ) : (
-            <>
-              {Array.from({ length: FAKE_PRODUCT_COUNT }, (_, i) => (
-                <li key={i}>
-                  <ProductSkeleton />
-                </li>
-              ))}
-            </>
-          )}
-        </ul>
-        <PaginationCSR
-          page={page}
-          setPage={setPage}
-          isPreviousData={isPreviousData}
-          isFetching={isFetching}
-        />
-      </div>
-
-      <Footer />
+            ))}
+          </>
+        )}
+      </ul>
+      <PaginationCSR
+        page={page}
+        setPage={setPage}
+        isPreviousData={isPreviousData}
+        isFetching={isFetching}
+      />
     </div>
   );
 };
